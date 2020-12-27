@@ -1,0 +1,5 @@
+{
+  "io.aelite.ledwall.core.ledwall.width": 48,
+  "io.aelite.ledwall.core.ledwall.height": 12,
+  "io.aelite.ledwall.restplugin.http.port": 8080
+}

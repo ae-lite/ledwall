@@ -12,11 +12,27 @@
 
     <artifactId>ledwall-rest-plugin</artifactId>
 
+    <properties>
+        <maven.deploy.skip>false</maven.deploy.skip>
+    </properties>
+
     <dependencies>
         <dependency>
             <groupId>${project.groupId}</groupId>
             <artifactId>ledwall-core</artifactId>
             <version>${revision}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>io.javalin</groupId>
+            <artifactId>javalin</artifactId>
+            <version>3.12.0</version>
+        </dependency>
+
+        <dependency>
+            <groupId>com.fasterxml.jackson.core</groupId>
+            <artifactId>jackson-databind</artifactId>
+            <version>2.12.0</version>
         </dependency>
     </dependencies>
 
