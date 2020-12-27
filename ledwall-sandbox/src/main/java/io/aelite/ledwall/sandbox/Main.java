@@ -1,25 +1,20 @@
 package io.aelite.ledwall.sandbox;
 
-import io.aelite.ledwall.core.LedWall;
 import io.aelite.ledwall.core.LedWallApplication;
+import io.aelite.ledwall.core.animation.Animation;
+import io.aelite.ledwall.layerpackage.StaticColor;
 
 public class Main {
 
     public static void main(String[] args) throws Exception {
         LedWallApplication application = LedWallApplication.INSTANCE;
+
+        Animation animation = new Animation("Test Animation");
+        animation.addLayer(new StaticColor());
+
+        application.getAnimationController().setRunningAnimation(animation);
+
         application.run();
-
-        // TODO: replace this behaviour with @AnimationLayer's
-        LedWall ledWall = application.getLedWall();
-        while(true){
-            ledWall.setPixels(0,0,0);
-            ledWall.show();
-            Thread.sleep(1000);
-
-            ledWall.setPixels(255,0,0);
-            ledWall.show();
-            Thread.sleep(1000);
-        }
     }
 
 }

@@ -1,6 +1,6 @@
 package io.aelite.ledwall.core;
 
-import io.aelite.ledwall.core.layer.AnimationLayerController;
+import io.aelite.ledwall.core.animation.AnimationController;
 import io.aelite.ledwall.core.plugin.PluginController;
 import org.reflections.Reflections;
 
@@ -10,21 +10,22 @@ public class LedWallApplication {
 
     private DispatcherLedWall ledWall;
     private PluginController pluginController;
-    private AnimationLayerController animationLayerController;
+    private AnimationController animationController;
 
     private LedWallApplication(){
         // TODO: load dimensions from config
         this.ledWall = new DispatcherLedWall(32, 18);
         this.pluginController = new PluginController();
-        this.animationLayerController = new AnimationLayerController();
+        this.animationController = new AnimationController();
     }
 
     public void run() {
         Reflections reflections = new Reflections("");
-        this.animationLayerController.loadAnimationLayerFactories(reflections);
         this.pluginController.loadPlugins(reflections);
         this.pluginController.initPlugins();
         this.pluginController.runPlugins();
+
+        this.animationController.run();
     }
 
     public void stop(){
@@ -36,7 +37,12 @@ public class LedWallApplication {
         return this.ledWall;
     }
 
-    public AnimationLayerController getAnimationLayerController() {
-        return animationLayerController;
+    /*public AnimationLayerController getAnimationLayerController() {
+        //TODO return animationLayerController;
+    }*/
+
+    public AnimationController getAnimationController(){
+        return this.animationController;
     }
+
 }

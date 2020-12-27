@@ -1,15 +1,24 @@
 package io.aelite.ledwall.layerpackage;
 
-import io.aelite.ledwall.core.layer.AnimationLayer;
-import io.aelite.ledwall.core.layer.Color;
-import io.aelite.ledwall.core.layer.control.Control;
+import io.aelite.ledwall.core.Canvas;
+import io.aelite.ledwall.core.animation.layer.AnimationLayer;
+import io.aelite.ledwall.core.animation.layer.LedWallAnimationLayer;
+import io.aelite.ledwall.core.Color;
+import io.aelite.ledwall.core.animation.control.LedWallControl;
 
-@AnimationLayer(name = "Static Color", description = "Lights up the entire LedWall in one color.")
-public class StaticColor {
+@LedWallAnimationLayer(name = "Static Color", description = "Lights up the entire LedWall in one color.")
+public class StaticColor extends AnimationLayer {
 
-    @Control("Color")
-    private Color color;
+    @LedWallControl("Color")
+    private Color color = new Color(255, 0, 0);
 
-    //TODO: implement
+    @Override
+    public void onUpdate(Canvas canvas, long frame) throws Exception {
+        canvas.fill(new Color((int) frame % 255, 0, 0));
+    }
+
+    public void setColor(Color color){
+        this.color = color;
+    }
 
 }

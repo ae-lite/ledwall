@@ -17,16 +17,22 @@ public class DispatcherLedWall extends LedWall {
     }
 
     @Override
-    public void setPixel(int x, int y, int r, int g, int b) {
+    public void set(int x, int y, Color color) {
         for(LedWall observer : this.observers){
-            observer.setPixel(x, y, r, g, b);
+            observer.set(x, y, color);
         }
     }
 
     @Override
-    public void setPixels(int r, int g, int b) {
+    public Color get(int x, int y) {
+        //TODO fix
+        throw new RuntimeException("Not implemented");
+    }
+
+    @Override
+    public void fill(Color color) {
         for(LedWall observer : this.observers){
-            observer.setPixels(r, g, b);
+            observer.fill(color);
         }
     }
 

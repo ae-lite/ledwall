@@ -1,16 +1,15 @@
 package io.aelite.ledwall.fxplugin;
 
 import io.aelite.ledwall.core.plugin.LedWallPlugin;
-import io.aelite.ledwall.core.plugin.OnInit;
-import io.aelite.ledwall.core.plugin.OnRun;
-import io.aelite.ledwall.core.plugin.OnStop;
+import io.aelite.ledwall.core.plugin.Plugin;
+import io.aelite.ledwall.core.plugin.PluginOnRun;
 import javafx.application.Application;
 import javafx.application.Platform;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 @LedWallPlugin
-public class LedWallFxPlugin implements OnInit, OnRun, OnStop {
+public class LedWallFxPlugin implements Plugin, PluginOnRun {
 
     private static final Logger logger = LoggerFactory.getLogger(LedWallFxPlugin.class);
 

@@ -1,4 +1,4 @@
-package io.aelite.ledwall.core.layer;
+package io.aelite.ledwall.core.animation.layer;
 
 import org.reflections.Reflections;
 
@@ -15,9 +15,9 @@ public class AnimationLayerController {
     }
 
     public void loadAnimationLayerFactories(Reflections reflections){
-        Set<Class<?>> classes = reflections.getTypesAnnotatedWith(AnimationLayer.class);
+        Set<Class<?>> classes = reflections.getTypesAnnotatedWith(LedWallAnimationLayer.class);
         for(Class aClass : classes){
-            AnimationLayer animationLayer = (AnimationLayer) aClass.getAnnotation(AnimationLayer.class);
+            LedWallAnimationLayer animationLayer = (LedWallAnimationLayer) aClass.getAnnotation(LedWallAnimationLayer.class);
             String name = animationLayer.name();
             String description = animationLayer.description();
             this.animationLayerFactories.add(new AnimationLayerFactory(name, description, aClass));

@@ -1,6 +1,6 @@
 package io.aelite.ledwall.core.plugin;
 
-public interface OnRun {
+public interface PluginOnRun {
 
     public abstract void onRun() throws Exception;
 

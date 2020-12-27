@@ -1,12 +1,11 @@
 package io.aelite.ledwall.fxplugin;
 
+import io.aelite.ledwall.core.Color;
 import io.aelite.ledwall.core.DispatcherLedWall;
 import io.aelite.ledwall.core.LedWall;
-import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.layout.GridPane;
-import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 
 import java.net.URL;
@@ -22,22 +21,14 @@ public class FxLedWall extends LedWall implements Initializable {
 
     private DispatcherLedWall dispatcherLedWall;
 
-    public FxLedWall(DispatcherLedWall ledWallDispatcher) {
-        super(ledWallDispatcher.getWidth(), ledWallDispatcher.getHeight());
+    public FxLedWall(DispatcherLedWall dispatcherLedWall) {
+        super(dispatcherLedWall.getWidth(), dispatcherLedWall.getHeight());
 
         this.rectangles = new Rectangle[super.getWidth()][super.getHeight()];
-        this.initCanvas();
-        this.ledSize = 25;
-        this.dispatcherLedWall = ledWallDispatcher;
-    }
-
-    private void initCanvas(){
         this.canvas = new Color[super.getWidth()][super.getHeight()];
-        for (int x = 0; x < super.getWidth(); x++) {
-            for (int y = 0; y < super.getHeight(); y++) {
-                this.canvas[x][y] = Color.color(0, 0, 0);
-            }
-        }
+        this.clear();
+        this.ledSize = 25;
+        this.dispatcherLedWall = dispatcherLedWall;
     }
 
     @Override
@@ -53,22 +44,27 @@ public class FxLedWall extends LedWall implements Initializable {
     }
 
     @Override
-    public void setPixel(int x, int y, int red, int green, int blue) {
-        this.canvas[x][y] = Color.color((double) red / 255, (double) green / 255, (double) blue / 255);
+    public void set(int x, int y, Color color) {
+        this.canvas[x][y] = color;
     }
 
     @Override
-    public void setPixels(int r, int g, int b) {
+    public io.aelite.ledwall.core.Color get(int x, int y) {
+        return this.canvas[x][y];
+    }
+
+    @Override
+    public void fill(io.aelite.ledwall.core.Color color) {
         for (int x = 0; x < super.getWidth(); x++) {
             for (int y = 0; y < super.getHeight(); y++) {
-                this.setPixel(x, y, r, g, b);
+                this.set(x, y, color);
             }
         }
     }
 
     @Override
     public void clear() {
-        this.setPixels(0, 0, 0);
+        this.fill(new Color(0, 0, 0));
     }
 
     @Override
@@ -76,7 +72,10 @@ public class FxLedWall extends LedWall implements Initializable {
         for (int x = 0; x < super.getWidth(); x++) {
             for (int y = 0; y < super.getHeight(); y++) {
                 Color color = this.canvas[x][y];
-                this.rectangles[x][y].setFill(color);
+                int red = color.getRed();
+                int green = color.getGreen();
+                int blue = color.getBlue();
+                this.rectangles[x][y].setFill(javafx.scene.paint.Color.color((double) red / 255, (double) green / 255, (double) blue / 255));
             }
         }
     }

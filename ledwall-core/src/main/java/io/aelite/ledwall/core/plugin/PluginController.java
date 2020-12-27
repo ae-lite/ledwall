@@ -12,17 +12,19 @@ public class PluginController {
 
     private static Logger logger = LoggerFactory.getLogger(PluginController.class);
 
-    private List<Object> plugins;
+    private List<Plugin> plugins;
 
     public PluginController(){
-        this.plugins = new ArrayList<Object>();
+        this.plugins = new ArrayList<Plugin>();
     }
 
     public void loadPlugins(Reflections reflections) {
-        Set<Class<?>> classes = reflections.getTypesAnnotatedWith(LedWallPlugin.class);
+        Set<Class<? extends Plugin>> classes = reflections.getSubTypesOf(Plugin.class);
         for(Class aClass : classes){
             try {
-                this.plugins.add(aClass.newInstance());
+                if(aClass.isAnnotationPresent(LedWallPlugin.class)){
+                    this.plugins.add((Plugin) aClass.newInstance());
+                }
             } catch (Exception e) {
                 logger.error("Plugin failed to load: " + aClass.getName());
                 e.printStackTrace();
@@ -31,23 +33,21 @@ public class PluginController {
     }
 
     public void initPlugins(){
-        for(Object plugin : this.plugins){
-            if(plugin instanceof OnInit){
-                try{
-                    ((OnInit) plugin).onInit();
-                } catch(Exception e){
-                    e.printStackTrace();
-                }
+        for(Plugin plugin : this.plugins){
+            try{
+                plugin.onInit();
+            } catch(Exception e){
+                e.printStackTrace();
             }
         }
     }
 
     public void runPlugins(){
-        for(Object plugin : this.plugins){
-            if(plugin instanceof OnRun){
+        for(Plugin plugin : this.plugins){
+            if(plugin instanceof PluginOnRun){
                 new Thread(() -> {
                     try {
-                        ((OnRun) plugin).onRun();
+                        ((PluginOnRun) plugin).onRun();
                     } catch (Exception e) {
                         e.printStackTrace();
                     }
@@ -57,13 +57,11 @@ public class PluginController {
     }
 
     public void stopPlugins(){
-        for(Object plugin : this.plugins){
-            if(plugin instanceof OnStop){
-                try{
-                    ((OnStop) plugin).onStop();
-                } catch(Exception e){
-                    e.printStackTrace();
-                }
+        for(Plugin plugin : this.plugins){
+            try{
+                plugin.onStop();
+            } catch(Exception e){
+                e.printStackTrace();
             }
         }
     }

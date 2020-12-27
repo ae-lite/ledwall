@@ -1,4 +1,4 @@
-package io.aelite.ledwall.core.layer;
+package io.aelite.ledwall.core.animation.layer;
 
 public class AnimationLayerFactory {
 

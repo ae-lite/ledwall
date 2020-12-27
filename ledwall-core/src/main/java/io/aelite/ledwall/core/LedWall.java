@@ -1,6 +1,6 @@
 package io.aelite.ledwall.core;
 
-public abstract class LedWall {
+public abstract class LedWall implements Canvas {
 
     private int width;
     private int height;
@@ -10,19 +10,15 @@ public abstract class LedWall {
         this.height = height;
     }
 
-    public int getWidth(){
+    @Override
+    public int getWidth() {
         return this.width;
     }
 
-    public int getHeight(){
+    @Override
+    public int getHeight() {
         return this.height;
     }
-
-    public abstract void setPixel(int x, int y, int r, int g, int b);
-
-    public abstract void setPixels(int r, int g, int b);
-
-    public abstract void clear();
 
     public abstract void show();
 
