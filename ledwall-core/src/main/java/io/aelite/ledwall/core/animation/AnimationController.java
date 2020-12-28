@@ -47,6 +47,7 @@ public class AnimationController {
         int height = ledWall.getHeight();
         int framerate = 60;
         int period = 1000 / framerate;
+        //TODO: use delta time
 
         while(true){
             long start = System.currentTimeMillis();
