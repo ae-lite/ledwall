@@ -1,7 +1,7 @@
 package io.aelite.ledwall.core.animation;
 
 import io.aelite.ledwall.core.*;
-import io.aelite.ledwall.core.animation.blendmode.BlendMode;
+import io.aelite.ledwall.core.blendmode.BlendMode;
 import io.aelite.ledwall.core.animation.layer.AnimationLayer;
 import io.aelite.ledwall.core.animation.layer.AnimationLayerOnInit;
 import io.aelite.ledwall.core.animation.layer.AnimationLayerOnStop;
@@ -33,9 +33,9 @@ public class AnimationController {
     }
 
     public synchronized void setRunningAnimation(Animation animation){
-        this.stopRunningAnimation();
+        this.runningAnimation.onStop();
         this.runningAnimation = animation;
-        this.startRunningAnimation();
+        this.runningAnimation.onInit();
         this.frame = 0;
         super.notify();
     }
@@ -56,22 +56,7 @@ public class AnimationController {
                     super.wait();
                 }
 
-                // TODO reuse canvas!
-                Canvas background = new BufferedCanvas(width, height);
-                for(AnimationLayer animationLayer : this.runningAnimation.getLayers()){
-                    //TODO reuse canvas!
-                    Canvas layer = new BufferedCanvas(width, height, 0x00000000);
-                    animationLayer.onUpdate(layer, this.frame);
-                    background = BlendMode.NORMAL.blend(background, layer);
-                }
-
-                for(int x = 0; x < width; x++){
-                    for(int y = 0; y < height; y++){
-                        ledWall.set(x, y, background.get(x, y));
-                    }
-                }
-
-                ledWall.show();
+                this.runningAnimation.onUpdate(this.frame);
                 this.frame++;
 
                 long elapsed = System.currentTimeMillis() - start;
@@ -86,27 +71,6 @@ public class AnimationController {
                 e.printStackTrace();
             }
         }
-    }
-
-    private void startRunningAnimation(){
-        if(this.runningAnimation instanceof AnimationLayerOnInit){
-            try {
-                ((AnimationLayerOnInit) this.runningAnimation).onInit();
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-        }
-    }
-
-    private void stopRunningAnimation(){
-        if(this.runningAnimation instanceof AnimationLayerOnStop){
-            try {
-                ((AnimationLayerOnStop) this.runningAnimation).onStop();
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-        }
-        this.runningAnimation = null;
     }
 
 }

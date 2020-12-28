@@ -17,4 +17,8 @@ public class StaticColor extends AnimationLayer {
         canvas.fill(this.color.get());
     }
 
+    public Color getColor(){
+        return this.color;
+    }
+
 }

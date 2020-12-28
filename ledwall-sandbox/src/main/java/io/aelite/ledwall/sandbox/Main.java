@@ -12,6 +12,10 @@ public class Main {
         Animation animation = new Animation("Test Animation");
         animation.addLayer(new StaticColor());
 
+        StaticColor second = new StaticColor();
+        second.getColor().set(0x88_00_00_FF);
+        animation.addLayer(second);
+
         application.getAnimationController().setRunningAnimation(animation);
 
         application.run();

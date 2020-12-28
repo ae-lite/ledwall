@@ -15,7 +15,7 @@ public class BufferedCanvas implements Canvas {
     }
 
     public BufferedCanvas(int width, int height){
-        this(width, height, 0xFF000000);
+        this(width, height, 0x00_00_00_00);
     }
 
     @Override
@@ -49,7 +49,7 @@ public class BufferedCanvas implements Canvas {
 
     @Override
     public void clear() {
-        this.fill(0xFF000000);
+        this.fill(0x00_00_00_00);
     }
 
 }

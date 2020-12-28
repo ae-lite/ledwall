@@ -20,6 +20,10 @@ public class Color {
         return this.argb;
     }
 
+    public void set(int argb){
+        this.argb = argb;
+    }
+
     public static int get(int alpha, int red, int green, int blue){
         int result = (alpha << 24);
         result = result | (red << 16);
@@ -29,22 +33,22 @@ public class Color {
     }
 
     public static int getAlpha(int argb){
-        int mask = 0xFF000000;
-        return (argb & mask) >> 24;
+        int mask = 0xFF_00_00_00;
+        return (argb & mask) >>> 24;
     }
 
     public static int getRed(int argb){
-        int mask = 0x00FF0000;
-        return (argb & mask) >> 16;
+        int mask = 0x00_FF_00_00;
+        return (argb & mask) >>> 16;
     }
 
     public static int getGreen(int argb){
-        int mask = 0x0000FF00;
-        return (argb & mask) >> 8;
+        int mask = 0x00_00_FF_00;
+        return (argb & mask) >>> 8;
     }
 
     public static int getBlue(int argb){
-        int mask = 0x000000FF;
+        int mask = 0x00_00_00_FF;
         return argb & mask;
     }
 
