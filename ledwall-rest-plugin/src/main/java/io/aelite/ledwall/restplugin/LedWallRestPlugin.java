@@ -3,7 +3,7 @@ package io.aelite.ledwall.restplugin;
 import io.aelite.ledwall.core.plugin.LedWallPlugin;
 import io.aelite.ledwall.core.plugin.Plugin;
 import io.aelite.ledwall.core.plugin.PluginOnRun;
-import io.aelite.ledwall.restplugin.handler.GetAnimationLayersHandler;
+import io.aelite.ledwall.restplugin.handler.GetAnimationLayerInstantiatorsHandler;
 import io.aelite.ledwall.restplugin.handler.GetDeviceTypeHandler;
 import io.aelite.ledwall.restplugin.handler.PostShutdownHandler;
 import io.javalin.Javalin;
@@ -28,7 +28,7 @@ public class LedWallRestPlugin implements Plugin, PluginOnRun {
         this.javalin = Javalin.create().start(8080);
         this.javalin.get("/devicetype", new GetDeviceTypeHandler());
         this.javalin.post("/shutdown", new PostShutdownHandler());
-        this.javalin.get("/animationlayers", new GetAnimationLayersHandler());
+        this.javalin.get("/animationlayerinstantiators", new GetAnimationLayerInstantiatorsHandler());
     }
 
     @Override

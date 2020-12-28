@@ -18,6 +18,7 @@ public class PluginController {
         this.plugins = new ArrayList<Plugin>();
     }
 
+    //TODO refactor loading to PluginLoader
     public void loadPlugins(Reflections reflections) {
         Set<Class<? extends Plugin>> classes = reflections.getSubTypesOf(Plugin.class);
         for(Class aClass : classes){

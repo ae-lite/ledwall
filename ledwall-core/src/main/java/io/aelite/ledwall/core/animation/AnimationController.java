@@ -56,9 +56,11 @@ public class AnimationController {
                     super.wait();
                 }
 
-                Canvas background = new DefaultCanvas(width, height);
+                // TODO reuse canvas!
+                Canvas background = new BufferedCanvas(width, height);
                 for(AnimationLayer animationLayer : this.runningAnimation.getLayers()){
-                    Canvas layer = new DefaultCanvas(width, height, new Color(0, 0, 0, 0));
+                    //TODO reuse canvas!
+                    Canvas layer = new BufferedCanvas(width, height, 0x00000000);
                     animationLayer.onUpdate(layer, this.frame);
                     background = BlendMode.NORMAL.blend(background, layer);
                 }
@@ -77,6 +79,7 @@ public class AnimationController {
                 if(sleep > 0){
                     super.wait(sleep);
                 } else {
+                    //TODO better message
                     logger.warn("Elapsed: " + elapsed);
                 }
             } catch (Exception e) {

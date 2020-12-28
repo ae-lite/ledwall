@@ -3,7 +3,7 @@ package io.aelite.ledwall.core;
 import java.util.ArrayList;
 import java.util.List;
 
-public class DispatcherLedWall extends LedWall {
+public class DispatcherLedWall extends BufferedLedWall {
 
     private List<LedWall> observers;
 
@@ -17,27 +17,29 @@ public class DispatcherLedWall extends LedWall {
     }
 
     @Override
-    public void set(int x, int y, Color color) {
+    public void set(int x, int y, int argb) {
+        super.set(x, y, argb);
         for(LedWall observer : this.observers){
-            observer.set(x, y, color);
+            observer.set(x, y, argb);
         }
     }
 
     @Override
-    public Color get(int x, int y) {
-        //TODO fix
-        throw new RuntimeException("Not implemented");
+    public int get(int x, int y) {
+        return super.get(x, y);
     }
 
     @Override
-    public void fill(Color color) {
+    public void fill(int argb) {
+        super.fill(argb);
         for(LedWall observer : this.observers){
-            observer.fill(color);
+            observer.fill(argb);
         }
     }
 
     @Override
     public void clear() {
+        super.clear();
         for(LedWall observer : this.observers){
             observer.clear();
         }

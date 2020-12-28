@@ -6,11 +6,11 @@ public interface Canvas {
 
     public abstract int getHeight();
 
-    public abstract void set(int x, int y, Color color);
+    public abstract void set(int x, int y, int argb);
 
-    public abstract Color get(int x, int y);
+    public abstract int get(int x, int y);
 
-    public abstract void fill(Color color);
+    public abstract void fill(int argb);
 
     public abstract void clear();
 
