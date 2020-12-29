@@ -13,8 +13,18 @@ public class StaticColor extends AnimationLayer {
     private Color color = new Color(255, 0, 0);
 
     @Override
-    public void onUpdate(Canvas canvas, long frame) throws Exception {
-        canvas.fill(this.color.get());
+    public void onInit() {
+
+    }
+
+    @Override
+    public void onUpdate(Canvas canvas, long frame) {
+        canvas.fill(Color.get(255, (int) (frame % 255), 0, 0));
+    }
+
+    @Override
+    public void onStop() {
+
     }
 
     public Color getColor(){

@@ -32,7 +32,8 @@ public class LedWallApplication {
         this.animationController.run();
     }
 
-    public void stop(){
+    public void stop() {
+        this.animationController.stop();
         this.pluginController.stopPlugins();
         System.exit(0);
     }

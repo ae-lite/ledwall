@@ -1,7 +1,5 @@
 package io.aelite.ledwall.core;
 
-import io.aelite.ledwall.core.blendmode.BlendMode;
-
 public interface Canvas {
 
     public abstract int getWidth();

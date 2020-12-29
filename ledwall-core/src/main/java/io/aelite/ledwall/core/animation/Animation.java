@@ -6,7 +6,6 @@ import io.aelite.ledwall.core.LedWall;
 import io.aelite.ledwall.core.LedWallApplication;
 import io.aelite.ledwall.core.animation.layer.AnimationLayer;
 import io.aelite.ledwall.core.blendmode.BlendUtil;
-import io.aelite.ledwall.core.blendmode.NormalBlendMode;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -19,7 +18,6 @@ public class Animation {
     private LedWall ledWall;
     private List<AnimationLayer> layers;
 
-    private Canvas clearBuffer;
     private Canvas frameBuffer;
 
     public Animation(String name) {
@@ -56,31 +54,45 @@ public class Animation {
         int width = this.ledWall.getWidth();
         int height = this.ledWall.getHeight();
 
-        this.clearBuffer = new BufferedCanvas(width, height, 0xFF_00_00_00);
         this.frameBuffer = new BufferedCanvas(width, height, 0x00_00_00_00);
+        this.initLayers();
+    }
+
+    private void initLayers(){
+        for(AnimationLayer animationLayer : this.layers){
+            try {
+                animationLayer.onInit();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
     }
 
     public void onStop(){
-        this.clearBuffer = null;
+        this.stopLayers();
         this.frameBuffer = null;
     }
 
-    public void onUpdate(long frame){
-        this.clearBuffer.fill(0xFF_00_00_00);
-
+    private void stopLayers(){
         for(AnimationLayer animationLayer : this.layers){
-            this.frameBuffer.clear();
+            try {
+                animationLayer.onStop();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+    public void onUpdate(Canvas canvas, long frame){
+        for(AnimationLayer animationLayer : this.layers){
+            this.frameBuffer.fill(0x00_00_00_00);
             try {
                 animationLayer.onUpdate(this.frameBuffer, frame);
             } catch (Exception e) {
                 e.printStackTrace();
             }
-            //TODO: Move blend mode to animationlayer
-            BlendUtil.blend(new NormalBlendMode(), this.clearBuffer, this.frameBuffer);
+            BlendUtil.blend(animationLayer.getBlendMode(), canvas, this.frameBuffer);
         }
-
-        BlendUtil.blend(this.ledWall, this.clearBuffer);
-        this.ledWall.show();
     }
 
 }

@@ -45,15 +45,13 @@ public class PluginController {
 
     public void runPlugins(){
         for(Plugin plugin : this.plugins){
-            if(plugin instanceof PluginOnRun){
-                new Thread(() -> {
-                    try {
-                        ((PluginOnRun) plugin).onRun();
-                    } catch (Exception e) {
-                        e.printStackTrace();
-                    }
-                }).start();
-            }
+            new Thread(() -> {
+                try {
+                    plugin.onRun();
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }).start();
         }
     }
 

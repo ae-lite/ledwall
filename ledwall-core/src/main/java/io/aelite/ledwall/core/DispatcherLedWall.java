@@ -13,6 +13,10 @@ public class DispatcherLedWall extends BufferedLedWall {
     }
 
     public void observe(LedWall observer){
+        if(observer.getWidth() != this.getWidth() || observer.getHeight() != this.getHeight()){
+            //TODO add error message
+            throw new RuntimeException();
+        }
         this.observers.add(observer);
     }
 
@@ -22,11 +26,6 @@ public class DispatcherLedWall extends BufferedLedWall {
         for(LedWall observer : this.observers){
             observer.set(x, y, argb);
         }
-    }
-
-    @Override
-    public int get(int x, int y) {
-        return super.get(x, y);
     }
 
     @Override

@@ -16,7 +16,8 @@ public class FxApplication extends Application {
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("FxLedWall.fxml"));
 
         DispatcherLedWall dispatcherLedWall = LedWallApplication.INSTANCE.getLedWall();
-        LedWall ledWall = new FxLedWall(dispatcherLedWall);
+        LedWall ledWall = new FxLedWall(dispatcherLedWall.getWidth(), dispatcherLedWall.getHeight());
+        dispatcherLedWall.observe(ledWall);
 
         fxmlLoader.setController(ledWall);
         Parent root = fxmlLoader.load();

@@ -2,7 +2,6 @@ package io.aelite.ledwall.fxplugin;
 
 import io.aelite.ledwall.core.BufferedLedWall;
 import io.aelite.ledwall.core.Color;
-import io.aelite.ledwall.core.DispatcherLedWall;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.layout.GridPane;
@@ -16,27 +15,23 @@ public class FxLedWall extends BufferedLedWall implements Initializable {
     @FXML
     private GridPane gridPane;
     private Rectangle[][] rectangles;
-    private int ledSize;
 
-    private DispatcherLedWall dispatcherLedWall;
+    public FxLedWall(int width, int height) {
+        super(width, height);
 
-    public FxLedWall(DispatcherLedWall dispatcherLedWall) {
-        super(dispatcherLedWall.getWidth(), dispatcherLedWall.getHeight());
-        this.rectangles = new Rectangle[super.getWidth()][super.getHeight()];
-        this.ledSize = 25;
-        this.dispatcherLedWall = dispatcherLedWall;
+        this.rectangles = new Rectangle[width][height];
+        for (int x = 0; x < width; x++) {
+            for (int y = 0; y < height; y++) {
+                this.rectangles[x][y] = new Rectangle(25, 25);
+            }
+        }
     }
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         for (int x = 0; x < super.getWidth(); x++) {
-            for (int y = 0; y < super.getHeight(); y++) {
-                this.rectangles[x][y] = new Rectangle(this.ledSize, this.ledSize);
-            }
             this.gridPane.addColumn(x, this.rectangles[x]);
         }
-
-        this.dispatcherLedWall.observe(this);
     }
 
     @Override

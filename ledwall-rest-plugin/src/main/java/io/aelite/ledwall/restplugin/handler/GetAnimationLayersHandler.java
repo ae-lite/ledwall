@@ -8,7 +8,7 @@ import org.jetbrains.annotations.NotNull;
 
 import java.util.List;
 
-public class GetAnimationLayerInstantiatorsHandler implements Handler {
+public class GetAnimationLayersHandler implements Handler {
 
     @Override
     public void handle(@NotNull Context context) {
