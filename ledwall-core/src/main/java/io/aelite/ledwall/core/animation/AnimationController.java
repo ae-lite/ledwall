@@ -13,11 +13,9 @@ public class AnimationController {
 
     private final Map<UUID, Animation> animations;
     private Animation runningAnimation;
-    private long frame;
 
     public AnimationController(){
         this.animations = new HashMap<UUID, Animation>();
-        this.frame = 0;
     }
 
     public List<Animation> getAnimations() {
@@ -37,7 +35,6 @@ public class AnimationController {
         this.stop();
         this.runningAnimation = animation;
         this.runningAnimation.onInit();
-        this.frame = 0;
         super.notify();
     }
 
@@ -48,35 +45,38 @@ public class AnimationController {
         }
     }
 
-    //TODO refactor
+    //TODO clean up
     public synchronized void run(){
         LedWall ledWall = LedWallApplication.INSTANCE.getLedWall();
         Canvas clearBuffer = new BufferedCanvas(ledWall.getWidth(), ledWall.getHeight(), 0xFF_00_00_00);
-        //TODO: load framerate from config
-        int framerate = 60;
-        int period = 1000 / framerate;
-        //TODO: use delta time
+
+        //TODO load fps from config
+        int fps = 30;
+        int period = 1000 / fps;
+
+        long millis_current = System.currentTimeMillis();
 
         while(true){
-            long start = System.currentTimeMillis();
+            long millis_last_frame = millis_current;
+            millis_current = System.currentTimeMillis();
+            double deltaTime = (double) (millis_current - millis_last_frame) / 1000;
+
             try {
                 while(this.runningAnimation == null){
                     super.wait();
                 }
 
                 clearBuffer.fill(0xFF_00_00_00);
-                this.runningAnimation.onUpdate(clearBuffer, this.frame);
+                this.runningAnimation.onUpdate(clearBuffer, deltaTime);
                 BlendUtil.blend(ledWall, clearBuffer);
                 ledWall.show();
-                this.frame++;
 
-                long elapsed = System.currentTimeMillis() - start;
+                long elapsed = System.currentTimeMillis() - millis_current;
                 long sleep = period - elapsed;
                 if(sleep > 0){
                     super.wait(sleep);
-                } else {
-                    //TODO better message
-                    logger.warn("Elapsed: " + elapsed);
+                }else{
+                    super.wait(5);
                 }
             } catch (Exception e) {
                 e.printStackTrace();

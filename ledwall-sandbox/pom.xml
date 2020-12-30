@@ -30,7 +30,7 @@
             <groupId>${project.groupId}</groupId>
             <artifactId>ledwall-layer-package</artifactId>
             <version>${revision}</version>
-            <scope>compile</scope>
+            <scope>runtime</scope>
         </dependency>
 
         <dependency>

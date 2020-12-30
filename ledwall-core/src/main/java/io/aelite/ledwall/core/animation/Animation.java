@@ -83,11 +83,11 @@ public class Animation {
         }
     }
 
-    public void onUpdate(Canvas canvas, long frame){
+    public void onUpdate(Canvas canvas, double deltaTime){
         for(AnimationLayer animationLayer : this.layers){
             this.frameBuffer.fill(0x00_00_00_00);
             try {
-                animationLayer.onUpdate(this.frameBuffer, frame);
+                animationLayer.onUpdate(this.frameBuffer, deltaTime);
             } catch (Exception e) {
                 e.printStackTrace();
             }

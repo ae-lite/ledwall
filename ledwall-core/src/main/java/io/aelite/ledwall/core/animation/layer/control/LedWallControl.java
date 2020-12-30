@@ -1,4 +1,4 @@
-package io.aelite.ledwall.core.animation.control;
+package io.aelite.ledwall.core.animation.layer.control;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;

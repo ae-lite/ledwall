@@ -33,7 +33,7 @@ public abstract class AnimationLayer {
 
     public abstract void onInit() throws Exception;
 
-    public abstract void onUpdate(Canvas canvas, long frame) throws Exception;
+    public abstract void onUpdate(Canvas canvas, double deltaTime) throws Exception;
 
     public abstract void onStop() throws Exception;
 
