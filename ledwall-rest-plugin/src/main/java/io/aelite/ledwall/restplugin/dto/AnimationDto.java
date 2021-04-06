@@ -1,6 +1,6 @@
 package io.aelite.ledwall.restplugin.dto;
 
-import io.aelite.ledwall.core.animation.Animation;
+import io.aelite.ledwall.core.Animation;
 
 import java.util.UUID;
 

@@ -1,7 +1,7 @@
 package io.aelite.ledwall.restplugin.handler;
 
 import io.aelite.ledwall.core.LedWallApplication;
-import io.aelite.ledwall.core.animation.Animation;
+import io.aelite.ledwall.core.Animation;
 import io.aelite.ledwall.core.animation.layer.AnimationLayer;
 import io.javalin.http.Context;
 import io.javalin.http.Handler;

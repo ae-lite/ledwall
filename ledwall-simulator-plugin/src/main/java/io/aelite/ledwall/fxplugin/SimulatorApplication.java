@@ -1,7 +1,5 @@
 package io.aelite.ledwall.fxplugin;
 
-import io.aelite.ledwall.core.DispatcherLedWall;
-import io.aelite.ledwall.core.LedWall;
 import io.aelite.ledwall.core.LedWallApplication;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
@@ -9,7 +7,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
-public class FxApplication extends Application {
+public class SimulatorApplication extends Application {
 
     @Override
     public void start(Stage stage) throws Exception {

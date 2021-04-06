@@ -18,7 +18,7 @@
 
     <modules>
 		<module>ledwall-core</module>
-		<module>ledwall-fx-plugin</module>
+		<module>ledwall-simulator-plugin</module>
 		<module>ledwall-layer-package</module>
 		<module>ledwall-rest-plugin</module>
 		<module>ledwall-rpi-plugin</module>

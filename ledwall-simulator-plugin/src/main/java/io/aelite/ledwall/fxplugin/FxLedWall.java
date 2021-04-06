@@ -1,6 +1,5 @@
 package io.aelite.ledwall.fxplugin;
 
-import io.aelite.ledwall.core.BufferedLedWall;
 import io.aelite.ledwall.core.Color;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -10,7 +9,7 @@ import javafx.scene.shape.Rectangle;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-public class FxLedWall extends BufferedLedWall implements Initializable {
+public class FxLedWall implements Initializable {
 
     @FXML
     private GridPane gridPane;

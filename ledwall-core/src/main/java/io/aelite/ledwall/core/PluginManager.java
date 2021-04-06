@@ -1,4 +1,4 @@
-package io.aelite.ledwall.core.plugin;
+package io.aelite.ledwall.core;
 
 import org.reflections.Reflections;
 import org.slf4j.Logger;
@@ -8,13 +8,13 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
-public class PluginController {
+public class PluginManager {
 
-    private static Logger logger = LoggerFactory.getLogger(PluginController.class);
+    private static Logger logger = LoggerFactory.getLogger(PluginManager.class);
 
     private List<Plugin> plugins;
 
-    public PluginController(){
+    public PluginManager(){
         this.plugins = new ArrayList<Plugin>();
     }
 

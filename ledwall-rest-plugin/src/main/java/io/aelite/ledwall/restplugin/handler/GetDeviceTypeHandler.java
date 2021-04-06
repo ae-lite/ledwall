@@ -1,6 +1,5 @@
 package io.aelite.ledwall.restplugin.handler;
 
-import io.aelite.ledwall.core.LedWall;
 import io.javalin.http.Context;
 import io.javalin.http.Handler;
 import org.jetbrains.annotations.NotNull;

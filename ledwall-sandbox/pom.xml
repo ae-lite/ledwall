@@ -50,7 +50,7 @@
             <dependencies>
                 <dependency>
                     <groupId>${project.groupId}</groupId>
-                    <artifactId>ledwall-fx-plugin</artifactId>
+                    <artifactId>ledwall-simulator-plugin</artifactId>
                     <version>${revision}</version>
                     <scope>runtime</scope>
                 </dependency>

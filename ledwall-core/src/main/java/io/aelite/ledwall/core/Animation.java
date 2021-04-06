@@ -1,9 +1,5 @@
-package io.aelite.ledwall.core.animation;
+package io.aelite.ledwall.core;
 
-import io.aelite.ledwall.core.BufferedCanvas;
-import io.aelite.ledwall.core.Canvas;
-import io.aelite.ledwall.core.LedWall;
-import io.aelite.ledwall.core.LedWallApplication;
 import io.aelite.ledwall.core.animation.layer.AnimationLayer;
 import io.aelite.ledwall.core.blendmode.BlendUtil;
 

@@ -1,20 +1,19 @@
-package io.aelite.ledwall.core.animation;
+package io.aelite.ledwall.core;
 
-import io.aelite.ledwall.core.*;
 import io.aelite.ledwall.core.blendmode.BlendUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.util.*;
 
-public class AnimationController {
+public class AnimationManager {
 
-    private static Logger logger = LoggerFactory.getLogger(AnimationController.class);
+    private static Logger logger = LoggerFactory.getLogger(AnimationManager.class);
 
     private final Map<UUID, Animation> animations;
     private Animation runningAnimation;
 
-    public AnimationController(){
+    public AnimationManager(){
         this.animations = new HashMap<UUID, Animation>();
     }
 

@@ -1,40 +1,55 @@
 package io.aelite.ledwall.core;
 
-import io.aelite.ledwall.core.animation.AnimationController;
+import com.google.inject.AbstractModule;
+import com.google.inject.Guice;
+import com.google.inject.Injector;
 import io.aelite.ledwall.core.animation.layer.AnimationLayerFactory;
-import io.aelite.ledwall.core.plugin.PluginController;
 import org.reflections.Reflections;
+
+import java.util.Set;
+import java.util.stream.Collectors;
 
 public class LedWallApplication {
 
-    public static LedWallApplication INSTANCE = new LedWallApplication();
+    private AnimationManager animationManager;
+    private AnimationPlayer animationPlayer;
+    private PluginManager pluginManager;
 
-    private DispatcherLedWall ledWall;
-    private PluginController pluginController;
-    private AnimationLayerFactory animationLayerFactory;
-    private AnimationController animationController;
+    public LedWallApplication(){
+        Set<? extends AbstractModule> guiceModules = this.findGuiceModules();
+        Injector injector = Guice.createInjector(guiceModules);
 
-    private LedWallApplication(){
-        // TODO: load dimensions from config
-        this.ledWall = new DispatcherLedWall(32, 18);
-        this.pluginController = new PluginController();
-        this.animationLayerFactory = new AnimationLayerFactory();
-        this.animationController = new AnimationController();
+        this.animationManager = injector.getInstance(AnimationManager.class);
+        this.animationPlayer = injector.getInstance(AnimationPlayer.class);
+        this.pluginManager = injector.getInstance(PluginManager.class);
+    }
+
+    private Set<? extends AbstractModule> findGuiceModules(){
+        Reflections reflections = new Reflections("");
+
+        return reflections.getSubTypesOf(AbstractModule.class).stream().map(clazz -> {
+            try {
+                return clazz.getDeclaredConstructor().newInstance();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            return null;
+        }).collect(Collectors.toSet());
     }
 
     public void run() {
-        Reflections reflections = new Reflections("");
-        this.animationLayerFactory.loadInstantiators(reflections);
-        this.pluginController.loadPlugins(reflections);
-        this.pluginController.initPlugins();
-        this.pluginController.runPlugins();
 
-        this.animationController.run();
+        this.animationLayerFactory.loadInstantiators(reflections);
+        this.pluginManager.loadPlugins(reflections);
+        this.pluginManager.initPlugins();
+        this.pluginManager.runPlugins();
+
+        this.animationManager.run();
     }
 
     public void stop() {
-        this.animationController.stop();
-        this.pluginController.stopPlugins();
+        this.animationManager.stop();
+        this.pluginManager.stopPlugins();
         System.exit(0);
     }
 
@@ -46,8 +61,8 @@ public class LedWallApplication {
         return this.animationLayerFactory;
     }
 
-    public AnimationController getAnimationController(){
-        return this.animationController;
+    public AnimationManager getAnimationController(){
+        return this.animationManager;
     }
 
 }
