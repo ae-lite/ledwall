@@ -1,4 +1,4 @@
-package io.aelite.ledwall.core.layer;
+package io.aelite.ledwall.core.animation.layer;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
@@ -7,7 +7,7 @@ import java.lang.annotation.Target;
 
 @Retention(RetentionPolicy.RUNTIME)
 @Target(ElementType.TYPE)
-public @interface AnimationLayer {
+public @interface LedWallAnimationLayer {
 
     String name();
     String description();
