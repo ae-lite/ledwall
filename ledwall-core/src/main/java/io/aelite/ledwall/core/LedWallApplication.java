@@ -3,7 +3,6 @@ package io.aelite.ledwall.core;
 import com.google.inject.AbstractModule;
 import com.google.inject.Guice;
 import com.google.inject.Injector;
-import io.aelite.ledwall.core.animation.layer.AnimationLayerFactory;
 import org.reflections.Reflections;
 
 import java.util.Set;
@@ -38,31 +37,14 @@ public class LedWallApplication {
     }
 
     public void run() {
-
-        this.animationLayerFactory.loadInstantiators(reflections);
-        this.pluginManager.loadPlugins(reflections);
         this.pluginManager.initPlugins();
-        this.pluginManager.runPlugins();
-
-        this.animationManager.run();
+        new Thread(this.animationPlayer::runRenderLoop).start();
     }
 
     public void stop() {
-        this.animationManager.stop();
+        this.animationPlayer.stop();
         this.pluginManager.stopPlugins();
         System.exit(0);
-    }
-
-    public DispatcherLedWall getLedWall() {
-        return this.ledWall;
-    }
-
-    public AnimationLayerFactory getAnimationLayerFactory() {
-        return this.animationLayerFactory;
-    }
-
-    public AnimationManager getAnimationController(){
-        return this.animationManager;
     }
 
 }

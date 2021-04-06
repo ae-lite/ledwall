@@ -1,20 +1,13 @@
 package io.aelite.ledwall.fxplugin;
 
-import com.google.inject.Inject;
 import io.aelite.ledwall.core.Plugin;
 import javafx.application.Application;
 import javafx.application.Platform;
-
-import java.util.logging.Logger;
+import org.slf4j.LoggerFactory;
 
 public class LedWallSimulatorPlugin implements Plugin {
 
-    private Logger logger;
-
-    @Inject
-    public LedWallSimulatorPlugin(Logger logger){
-        this.logger = logger;
-    }
+    private static final org.slf4j.Logger logger = LoggerFactory.getLogger(LedWallSimulatorPlugin.class);
 
     @Override
     public void onInit() {

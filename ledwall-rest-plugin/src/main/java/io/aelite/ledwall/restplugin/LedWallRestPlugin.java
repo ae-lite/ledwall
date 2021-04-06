@@ -5,18 +5,16 @@ import com.google.inject.name.Named;
 import io.aelite.ledwall.core.Plugin;
 import io.aelite.ledwall.restplugin.handler.*;
 import io.javalin.Javalin;
-
-import java.util.logging.Logger;
+import org.slf4j.LoggerFactory;
 
 public class LedWallRestPlugin implements Plugin {
 
-    private Logger logger;
+    private static org.slf4j.Logger logger = LoggerFactory.getLogger(LedWallRestPlugin.class);
     private Javalin javalin;
     private int port;
 
     @Inject
-    public LedWallRestPlugin(Logger logger, @Named("ledwall.rest.port") int port){
-        this.logger = logger;
+    public LedWallRestPlugin(@Named("ledwall.rest.port") int port){
         this.port = port;
     }
 

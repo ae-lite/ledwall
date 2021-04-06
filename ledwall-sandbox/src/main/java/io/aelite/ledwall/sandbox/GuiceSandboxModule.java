@@ -19,6 +19,12 @@ public class GuiceSandboxModule extends AbstractModule {
     }
 
     @Provides
+    @Named("ledwall.core.maxfps")
+    public int maxFps(){
+        return 60;
+    }
+
+    @Provides
     @Named("ledwall.rest.port")
     public int ledwallRestPort(){
         return 8080;

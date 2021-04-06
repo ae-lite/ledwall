@@ -1,5 +1,6 @@
 package io.aelite.ledwall.fxplugin;
 
+import io.aelite.ledwall.core.Canvas;
 import io.aelite.ledwall.core.Color;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -13,14 +14,20 @@ public class FxLedWall implements Initializable {
 
     @FXML
     private GridPane gridPane;
+
     private Rectangle[][] rectangles;
 
-    public FxLedWall(int width, int height) {
-        super(width, height);
+    private int width;
 
-        this.rectangles = new Rectangle[width][height];
-        for (int x = 0; x < width; x++) {
-            for (int y = 0; y < height; y++) {
+    private int height;
+
+    public FxLedWall(int width, int height) {
+        this.width = width;
+        this.height = height;
+
+        this.rectangles = new Rectangle[this.width][this.height];
+        for (int x = 0; x < this.width; x++) {
+            for (int y = 0; y < this.height; y++) {
                 this.rectangles[x][y] = new Rectangle(25, 25);
             }
         }
@@ -28,16 +35,15 @@ public class FxLedWall implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        for (int x = 0; x < super.getWidth(); x++) {
+        for (int x = 0; x < this.width; x++) {
             this.gridPane.addColumn(x, this.rectangles[x]);
         }
     }
 
-    @Override
-    public void show() {
-        for (int x = 0; x < super.getWidth(); x++) {
-            for (int y = 0; y < super.getHeight(); y++) {
-                int argb = super.get(x, y);
+    public void updateFrame(Canvas canvas) {
+        for (int x = 0; x < this.width; x++) {
+            for (int y = 0; y < this.height; y++) {
+                int argb = canvas.get(x, y);
                 this.rectangles[x][y].setFill(javafx.scene.paint.Color.rgb(Color.getRed(argb), Color.getGreen(argb), Color.getBlue(argb)));
             }
         }

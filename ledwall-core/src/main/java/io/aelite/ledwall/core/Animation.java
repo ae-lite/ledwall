@@ -5,21 +5,16 @@ import io.aelite.ledwall.core.blendmode.BlendUtil;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.UUID;
 
 public class Animation {
 
-    private UUID uuid;
     private String name;
-    private LedWall ledWall;
-    private List<AnimationLayer> layers;
-
+    private ArrayList<AnimationLayer> animationLayers;
     private Canvas frameBuffer;
 
     public Animation(String name) {
         this.name = name;
-        this.ledWall = LedWallApplication.INSTANCE.getLedWall();
-        this.layers = new ArrayList<AnimationLayer>();
+        this.animationLayers = new ArrayList<AnimationLayer>();
     }
 
     public String getName() {
@@ -30,27 +25,19 @@ public class Animation {
         this.name = name;
     }
 
-    public UUID getUuid() {
-        return uuid;
+    public List<AnimationLayer> getAnimationLayers() {
+        return animationLayers;
     }
 
-    public void setUuid(UUID uuid) {
-        this.uuid = uuid;
-    }
-
-    public List<AnimationLayer> getLayers() {
-        return layers;
-    }
-
-    public void addLayer(AnimationLayer animationLayer){
-        this.layers.add(animationLayer);
+    public void addAnimationLayer(AnimationLayer animationLayer){
+        this.animationLayers.add(animationLayer);
     }
 
     public void onInit(){
         int width = this.ledWall.getWidth();
         int height = this.ledWall.getHeight();
 
-        this.frameBuffer = new BufferedCanvas(width, height, 0x00_00_00_00);
+        this.frameBuffer = new Canvas(width, height, 0x00_00_00_00);
         this.initLayers();
     }
 

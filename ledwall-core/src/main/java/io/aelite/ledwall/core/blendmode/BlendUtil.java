@@ -17,15 +17,4 @@ public class BlendUtil {
         }
     }
 
-    public static void blend(Canvas bottom, Canvas top){
-        for(int x = 0; x < bottom.getWidth(); x++){
-            for(int y = 0; y < bottom.getHeight(); y++){
-
-                int color = top.get(x, y);
-                bottom.set(x, y, color);
-
-            }
-        }
-    }
-
 }
