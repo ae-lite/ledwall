@@ -2,7 +2,7 @@ package io.aelite.ledwall.layerpackage;
 
 import com.google.inject.AbstractModule;
 import com.google.inject.multibindings.ProvidesIntoSet;
-import io.aelite.ledwall.core.animation.layer.AnimationLayer;
+import io.aelite.ledwall.core.animation.AnimationLayer;
 
 public class GuiceLayerPackageModule extends AbstractModule {
 

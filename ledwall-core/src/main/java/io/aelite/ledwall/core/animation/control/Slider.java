@@ -1,6 +1,6 @@
-package io.aelite.ledwall.core.animation.layer.control;
+package io.aelite.ledwall.core.animation.control;
 
-public class Slider {
+public class Slider extends Control {
 
     private double min;
     private double max;

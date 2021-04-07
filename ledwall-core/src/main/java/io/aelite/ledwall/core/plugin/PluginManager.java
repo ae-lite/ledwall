@@ -1,4 +1,4 @@
-package io.aelite.ledwall.core;
+package io.aelite.ledwall.core.plugin;
 
 import com.google.inject.Inject;
 import org.slf4j.Logger;

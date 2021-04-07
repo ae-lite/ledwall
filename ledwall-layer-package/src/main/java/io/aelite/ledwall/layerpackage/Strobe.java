@@ -1,27 +1,29 @@
 package io.aelite.ledwall.layerpackage;
 
+import com.google.inject.Inject;
 import io.aelite.ledwall.core.Canvas;
-import io.aelite.ledwall.core.Color;
-import io.aelite.ledwall.core.animation.layer.control.LedWallControl;
-import io.aelite.ledwall.core.animation.layer.control.Slider;
-import io.aelite.ledwall.core.animation.layer.AnimationLayer;
-import io.aelite.ledwall.core.animation.layer.LedWallAnimationLayer;
+import io.aelite.ledwall.core.animation.control.Color;
+import io.aelite.ledwall.core.animation.control.Slider;
+import io.aelite.ledwall.core.animation.AnimationLayer;
+import io.aelite.ledwall.core.blendmode.BlendMode;
 
-@LedWallAnimationLayer(name = "Strobe", description = "The LedWall lights up frequently.")
+import java.util.Set;
+
 public class Strobe extends AnimationLayer {
 
-    @LedWallControl("Color")
-    private Color color;
-
-    @LedWallControl("Frequency")
-    private Slider frequency;
-
+    private final Color color = new Color(255, 255, 255);
+    private final Slider frequency = new Slider(1, 10, 1, 3);
     private double elapsedTime;
+
+    @Inject
+    public Strobe(Set<BlendMode> blendModes) {
+        super(blendModes);
+        super.registerControl("Color", this.color);
+        super.registerControl("Frequency", this.frequency);
+    }
 
     @Override
     public void onInit() {
-        this.color = new Color(255, 255, 255);
-        this.frequency = new Slider(1, 10, 1, 3);
         this.elapsedTime = 0;
     }
 
@@ -30,13 +32,14 @@ public class Strobe extends AnimationLayer {
         this.elapsedTime += deltaTime;
 
         if(this.elapsedTime > (1 / this.frequency.getValue())){
-            canvas.fill(this.color.get());
+            canvas.fill(this.color.getARGB());
             this.elapsedTime = 0;
         }
     }
 
     @Override
     public void onStop() {
+
     }
 
 }

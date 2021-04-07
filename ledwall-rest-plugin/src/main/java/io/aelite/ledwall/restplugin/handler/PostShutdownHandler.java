@@ -8,9 +8,9 @@ import org.jetbrains.annotations.NotNull;
 public class PostShutdownHandler implements Handler {
 
     @Override
-    public void handle(@NotNull Context context) throws Exception {
+    public void handle(@NotNull Context context) {
         context.status(200);
-        new Thread(() -> LedWallApplication.INSTANCE.stop()).start();
+        new Thread(LedWallApplication.INSTANCE::stop).start();
     }
 
 }

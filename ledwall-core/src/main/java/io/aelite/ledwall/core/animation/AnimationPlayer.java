@@ -1,7 +1,10 @@
-package io.aelite.ledwall.core;
+package io.aelite.ledwall.core.animation;
 
 import com.google.inject.Inject;
 import com.google.inject.name.Named;
+import io.aelite.ledwall.core.Canvas;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -9,12 +12,12 @@ import java.util.function.Consumer;
 
 public class AnimationPlayer {
 
+    private static final Logger logger = LoggerFactory.getLogger(AnimationPlayer.class);
+
     private int maxFps;
     private int width;
     private int height;
-
     private Animation runningAnimation;
-
     private List<Consumer<Canvas>> frameUpdateSubscribers;
 
     @Inject
@@ -25,27 +28,26 @@ public class AnimationPlayer {
     ){
         this.maxFps = maxFps;
         this.width = width;
-        this.height= height;
-
+        this.height = height;
+        this.runningAnimation = null;
         this.frameUpdateSubscribers = new ArrayList<Consumer<Canvas>>();
     }
 
-    public void play(Animation animation){
+    public synchronized void play(Animation animation){
         this.stop();
         this.runningAnimation = animation;
-        this.runningAnimation.onInit();
+        this.runningAnimation.onInit(this.width, this.height);
         super.notify();
     }
 
-    public void stop(){
+    public synchronized void stop(){
         if(this.runningAnimation != null){
             this.runningAnimation.onStop();
             this.runningAnimation = null;
         }
     }
 
-    public void runRenderLoop(){
-        Canvas frame = new Canvas(this.width, this.height);
+    public synchronized void runRenderLoop(){
         int period = 1000 / this.maxFps;
         long millis_current = System.currentTimeMillis();
 
@@ -59,8 +61,7 @@ public class AnimationPlayer {
                     super.wait();
                 }
 
-                frame.fill(0xFF_00_00_00);
-                this.runningAnimation.onUpdate(frame, deltaTime);
+                Canvas frame = this.runningAnimation.onUpdate(deltaTime);
                 this.publishFrame(frame);
 
                 long elapsed = System.currentTimeMillis() - millis_current;
@@ -68,6 +69,7 @@ public class AnimationPlayer {
                 if(sleep > 0){
                     super.wait(sleep);
                 }else{
+                    logger.warn("Detected frame drop. Frame render duration: " + elapsed + "ms");
                     super.wait(5);
                 }
             } catch (Exception e) {

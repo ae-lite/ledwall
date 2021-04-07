@@ -1,6 +1,6 @@
-package io.aelite.ledwall.fxplugin;
+package io.aelite.ledwall.simulatorplugin;
 
-import io.aelite.ledwall.core.Plugin;
+import io.aelite.ledwall.core.plugin.Plugin;
 import javafx.application.Application;
 import javafx.application.Platform;
 import org.slf4j.LoggerFactory;
@@ -11,18 +11,14 @@ public class LedWallSimulatorPlugin implements Plugin {
 
     @Override
     public void onInit() {
-        logger.info("LedWallSimulatorPlugin initialized.");
-        new Thread(this::run);
+        logger.info("LedWallSimulatorPlugin initialized");
+        new Thread(() -> Application.launch(SimulatorApplication.class)).start();
     }
 
     @Override
     public void onStop() {
         Platform.exit();
-        logger.info("LedWallSimulatorPlugin stopped.");
-    }
-
-    private void run() {
-        Application.launch(SimulatorApplication.class);
+        logger.info("LedWallSimulatorPlugin stopped");
     }
 
 }

@@ -1,34 +1,36 @@
 package io.aelite.ledwall.layerpackage;
 
+import com.google.inject.Inject;
 import io.aelite.ledwall.core.Canvas;
-import io.aelite.ledwall.core.Color;
-import io.aelite.ledwall.core.animation.layer.AnimationLayer;
-import io.aelite.ledwall.core.animation.layer.LedWallAnimationLayer;
-import io.aelite.ledwall.core.animation.layer.control.LedWallControl;
+import io.aelite.ledwall.core.animation.AnimationLayer;
+import io.aelite.ledwall.core.animation.control.Color;
+import io.aelite.ledwall.core.blendmode.BlendMode;
 
-@LedWallAnimationLayer(name = "Static Color", description = "Lights up the entire LedWall in one color.")
+import java.util.Set;
+
 public class StaticColor extends AnimationLayer {
 
-    @LedWallControl("Color")
-    private Color color;
+    private final Color color = new Color(255, 255, 255);
+
+    @Inject
+    public StaticColor(Set<BlendMode> blendModes){
+        super(blendModes);
+        super.registerControl("Color", this.color);
+    }
 
     @Override
     public void onInit() {
-        this.color = new Color(255, 255, 255);
+
     }
 
     @Override
     public void onUpdate(Canvas canvas, double deltaTime) {
-        canvas.fill(this.color.get());
+        canvas.fill(this.color.getARGB());
     }
 
     @Override
     public void onStop() {
 
-    }
-
-    public Color getColor(){
-        return this.color;
     }
 
 }

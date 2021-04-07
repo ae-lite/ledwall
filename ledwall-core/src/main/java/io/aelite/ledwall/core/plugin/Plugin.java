@@ -1,4 +1,4 @@
-package io.aelite.ledwall.core;
+package io.aelite.ledwall.core.plugin;
 
 public interface Plugin {
 

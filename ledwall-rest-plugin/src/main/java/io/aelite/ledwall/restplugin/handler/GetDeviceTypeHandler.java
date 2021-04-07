@@ -7,8 +7,8 @@ import org.jetbrains.annotations.NotNull;
 public class GetDeviceTypeHandler implements Handler {
 
     @Override
-    public void handle(@NotNull Context context) throws Exception {
-        context.result("{\"deviceType\":\"" + LedWall.class.getName() + "\"}");
+    public void handle(@NotNull Context context) {
+        context.result("{\"deviceType\":\"io.aelite.ledwall\"}");
     }
 
 }

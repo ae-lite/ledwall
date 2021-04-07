@@ -1,15 +1,16 @@
-package io.aelite.ledwall.fxplugin;
+package io.aelite.ledwall.restplugin;
 
 import com.google.inject.AbstractModule;
 import com.google.inject.Singleton;
 import com.google.inject.multibindings.Multibinder;
-import io.aelite.ledwall.core.Plugin;
+import io.aelite.ledwall.core.plugin.Plugin;
 
-public class GuiceSimulatorModule extends AbstractModule {
+public class GuiceRestPluginModule extends AbstractModule {
 
     @Override
     protected void configure() {
         Multibinder<Plugin> pluginBinder = Multibinder.newSetBinder(binder(), Plugin.class);
-        pluginBinder.addBinding().to(LedWallSimulatorPlugin.class).in(Singleton.class);
+        pluginBinder.addBinding().to(LedWallRestPlugin.class).in(Singleton.class);
     }
+
 }

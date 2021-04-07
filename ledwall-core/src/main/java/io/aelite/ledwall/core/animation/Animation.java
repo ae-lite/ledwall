@@ -1,7 +1,6 @@
-package io.aelite.ledwall.core;
+package io.aelite.ledwall.core.animation;
 
-import io.aelite.ledwall.core.animation.layer.AnimationLayer;
-import io.aelite.ledwall.core.blendmode.BlendUtil;
+import io.aelite.ledwall.core.Canvas;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -10,7 +9,9 @@ public class Animation {
 
     private String name;
     private ArrayList<AnimationLayer> animationLayers;
-    private Canvas frameBuffer;
+
+    private Canvas backgroundFrameBuffer;
+    private Canvas layerFrameBuffer;
 
     public Animation(String name) {
         this.name = name;
@@ -33,16 +34,11 @@ public class Animation {
         this.animationLayers.add(animationLayer);
     }
 
-    public void onInit(){
-        int width = this.ledWall.getWidth();
-        int height = this.ledWall.getHeight();
+    public void onInit(int width, int height){
+        this.backgroundFrameBuffer = new Canvas(width, height, 0xFF_00_00_00);
+        this.layerFrameBuffer = new Canvas(width, height, 0x00_00_00_00);
 
-        this.frameBuffer = new Canvas(width, height, 0x00_00_00_00);
-        this.initLayers();
-    }
-
-    private void initLayers(){
-        for(AnimationLayer animationLayer : this.layers){
+        for(AnimationLayer animationLayer : this.animationLayers){
             try {
                 animationLayer.onInit();
             } catch (Exception e) {
@@ -51,31 +47,31 @@ public class Animation {
         }
     }
 
-    public void onStop(){
-        this.stopLayers();
-        this.frameBuffer = null;
+    public Canvas onUpdate(double deltaTime){
+        this.backgroundFrameBuffer.fill(0xFF_00_00_00);
+
+        for(AnimationLayer animationLayer : this.animationLayers){
+            this.layerFrameBuffer.fill(0x00_00_00_00);
+            try {
+                animationLayer.onUpdate(this.layerFrameBuffer, deltaTime);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            this.backgroundFrameBuffer.blend(this.layerFrameBuffer, animationLayer.getBlendMode());
+        }
+        return this.backgroundFrameBuffer;
     }
 
-    private void stopLayers(){
-        for(AnimationLayer animationLayer : this.layers){
+    public void onStop(){
+        for(AnimationLayer animationLayer : this.animationLayers){
             try {
                 animationLayer.onStop();
             } catch (Exception e) {
                 e.printStackTrace();
             }
         }
-    }
 
-    public void onUpdate(Canvas canvas, double deltaTime){
-        for(AnimationLayer animationLayer : this.layers){
-            this.frameBuffer.fill(0x00_00_00_00);
-            try {
-                animationLayer.onUpdate(this.frameBuffer, deltaTime);
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-            BlendUtil.blend(animationLayer.getBlendMode(), canvas, this.frameBuffer);
-        }
+        this.backgroundFrameBuffer = null;
     }
 
 }

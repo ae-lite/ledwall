@@ -5,26 +5,28 @@ import io.aelite.ledwall.core.Color;
 public class NormalBlendMode implements BlendMode {
 
     @Override
-    public int blend(int bottom, int top) {
-        int a = Color.getAlpha(top);
-        if(Color.getAlpha(top) == 255){
-            return top;
+    public int blendPixel(int bottomArgb, int topArgb) {
+        //TODO fix for transparency
+        int a = Color.getAlpha(topArgb);
+        if(Color.getAlpha(topArgb) == 255){
+            return topArgb;
         }
 
-        int redA = Color.getRed(bottom);
-        int greenA = Color.getGreen(bottom);
-        int blueA = Color.getBlue(bottom);
+        int redA = Color.getRed(bottomArgb);
+        int greenA = Color.getGreen(bottomArgb);
+        int blueA = Color.getBlue(bottomArgb);
 
-        int alphaB = Color.getAlpha(top);
-        int redB = Color.getRed(top);
-        int greenB = Color.getGreen(top);
-        int blueB = Color.getBlue(top);
+        int alphaB = Color.getAlpha(topArgb);
+        int redB = Color.getRed(topArgb);
+        int greenB = Color.getGreen(topArgb);
+        int blueB = Color.getBlue(topArgb);
 
         double alpha = (double) alphaB / 255;
         int red     = (int) ((double) redB * alpha + (1 - alpha) * (double) redA);
         int green   = (int) ((double) greenB * alpha + (1 - alpha) * (double) greenA);
         int blue    = (int) ((double) blueB * alpha + (1 - alpha) * (double) blueA);
 
+        // TODO: 255?
         return Color.get(255, red, green, blue);
     }
 
