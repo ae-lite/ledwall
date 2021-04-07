@@ -1,37 +1,40 @@
 package io.aelite.ledwall.core.animation.control;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import java.util.*;
 
-public class Select<T> extends Control {
+public class Select<K, V> extends Control {
 
-    private List<T> elements;
-    private int selectedIndex;
+    private Map<K, V> elements;
+    private K selection;
 
-    public Select(Iterable<T> elements) {
-        this.elements = new ArrayList<T>();
-        for (T element : elements) {
-            this.elements.add(element);
+    public Select() {
+        this.elements = new LinkedHashMap<K, V>();
+    }
+
+    public void put(K key, V value){
+        if(this.selection == null){
+            this.selection = key;
         }
+        this.elements.put(key, value);
     }
 
-    public Select(T... elements) {
-        this(Arrays.asList(elements));
+    public List<K> getElements() {
+        return new ArrayList<K>(this.elements.keySet());
     }
 
-    public List<T> getElements() {
-        return this.elements;
+    public void select(K key){
+        this.selection = key;
     }
 
-    public void setSelectedIndex(int index){
-        this.selectedIndex = index;
+    public K getSelection(){
+        return this.selection;
     }
 
-    public int getSelectedIndex(int index){
-        return this.selectedIndex;
-    }
-
-    public T getSelection(){
-        return this.elements.get(this.selectedIndex);
+    @JsonIgnore
+    public V getSelectedValue(){
+        return this.elements.get(this.selection);
     }
 
 }

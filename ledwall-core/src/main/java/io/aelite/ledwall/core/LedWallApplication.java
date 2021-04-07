@@ -1,10 +1,13 @@
 package io.aelite.ledwall.core;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import io.aelite.ledwall.core.animation.Animation;
 import io.aelite.ledwall.core.animation.AnimationManager;
 import io.aelite.ledwall.core.animation.AnimationPlayer;
 import io.aelite.ledwall.core.animation.layer.AnimationLayerBuilder;
 import io.aelite.ledwall.core.animation.layer.AnimationLayerManager;
+import io.aelite.ledwall.core.animation.layer.blendmode.BlendMode;
 import io.aelite.ledwall.core.plugin.PluginLoader;
 import io.aelite.ledwall.core.plugin.PluginManager;
 

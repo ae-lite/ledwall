@@ -6,6 +6,7 @@ import io.aelite.ledwall.core.animation.layer.AnimationLayerBuilder;
 import io.aelite.ledwall.core.plugin.Plugin;
 import io.aelite.ledwall.restplugin.dto.AnimationDTO;
 import io.aelite.ledwall.restplugin.dto.AnimationLayerBuilderDTO;
+import io.aelite.ledwall.restplugin.dto.DetailedAnimationDTO;
 import io.javalin.Javalin;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -58,13 +59,13 @@ public class LedWallRestPlugin implements Plugin {
 
         this.javalin.get("/animations/:uuid", (ctx) -> {
             UUID uuid = UUID.fromString(ctx.pathParam("uuid"));
-            ctx.json(new AnimationDTO(LedWallApplication.INSTANCE.getAnimation(uuid)));
+            ctx.json(new DetailedAnimationDTO(LedWallApplication.INSTANCE.getAnimation(uuid)));
         });
 
         this.javalin.post("/animations/:name", (ctx) -> {
             Animation animation = new Animation(ctx.pathParam("name"));
             LedWallApplication.INSTANCE.addAnimation(animation);
-            ctx.json(new AnimationDTO(animation));
+            ctx.json(new DetailedAnimationDTO(animation));
         });
 
         this.javalin.put("/animations/:animationUuid/layers/:layerBuilderUuid", (ctx) -> {
@@ -74,6 +75,8 @@ public class LedWallRestPlugin implements Plugin {
             AnimationLayerBuilder animationLayerBuilder = LedWallApplication.INSTANCE.getAnimationLayerBuilder(layerBuilderUuid);
             Animation animation = LedWallApplication.INSTANCE.getAnimation(animationUuid);
             animation.addAnimationLayer(animationLayerBuilder.build());
+
+            ctx.json(new DetailedAnimationDTO(animation));
         });
     }
 

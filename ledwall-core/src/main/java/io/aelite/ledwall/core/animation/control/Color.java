@@ -1,5 +1,7 @@
 package io.aelite.ledwall.core.animation.control;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 public class Color extends Control {
 
     private int alpha;
@@ -18,6 +20,7 @@ public class Color extends Control {
         this(255, red, green, blue);
     }
 
+    @JsonIgnore
     public int getARGB(){
         int result = (alpha << 24);
         result = result | (red << 16);
