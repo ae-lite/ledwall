@@ -28,7 +28,14 @@
 
         <dependency>
             <groupId>${project.groupId}</groupId>
-            <artifactId>ledwall-layer-package</artifactId>
+            <artifactId>ledwall-layer-package-plugin</artifactId>
+            <version>${revision}</version>
+            <scope>runtime</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>${project.groupId}</groupId>
+            <artifactId>ledwall-simulator-plugin</artifactId>
             <version>${revision}</version>
             <scope>runtime</scope>
         </dependency>
@@ -40,35 +47,6 @@
             <scope>runtime</scope>
         </dependency>
     </dependencies>
-
-    <profiles>
-        <profile>
-            <id>dev</id>
-            <activation>
-                <activeByDefault>true</activeByDefault>
-            </activation>
-            <dependencies>
-                <dependency>
-                    <groupId>${project.groupId}</groupId>
-                    <artifactId>ledwall-fx-plugin</artifactId>
-                    <version>${revision}</version>
-                    <scope>runtime</scope>
-                </dependency>
-            </dependencies>
-        </profile>
-
-        <profile>
-            <id>prod</id>
-            <dependencies>
-                <dependency>
-                    <groupId>${project.groupId}</groupId>
-                    <artifactId>ledwall-rpi-plugin</artifactId>
-                    <version>${revision}</version>
-                    <scope>runtime</scope>
-                </dependency>
-            </dependencies>
-        </profile>
-    </profiles>
 
     <build>
         <plugins>

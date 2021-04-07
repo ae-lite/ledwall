@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.layout.GridPane?>
+
+<GridPane
+        fx:controller="io.aelite.ledwall.simulatorplugin.SimulatorLedWall"
+        fx:id="gridPane"
+        vgap="1.0"
+        hgap="1.0"
+        maxHeight="-Infinity"
+        maxWidth="-Infinity"
+        minHeight="-Infinity"
+        minWidth="-Infinity"
+        xmlns="http://javafx.com/javafx/8.0.171"
+        xmlns:fx="http://javafx.com/fxml/1">
+</GridPane>

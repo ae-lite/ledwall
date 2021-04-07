@@ -18,8 +18,8 @@
 
     <modules>
 		<module>ledwall-core</module>
-		<module>ledwall-fx-plugin</module>
-		<module>ledwall-layer-package</module>
+		<module>ledwall-simulator-plugin</module>
+		<module>ledwall-layer-package-plugin</module>
 		<module>ledwall-rest-plugin</module>
 		<module>ledwall-rpi-plugin</module>
 		<module>ledwall-sandbox</module>
