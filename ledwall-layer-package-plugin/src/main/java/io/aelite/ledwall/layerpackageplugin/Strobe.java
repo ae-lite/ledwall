@@ -12,7 +12,8 @@ public class Strobe extends AnimationLayer {
     private final Slider frequency = new Slider(1, 10, 1, 3);
     private double elapsedTime;
 
-    public Strobe() {
+    public Strobe(String name) {
+        super(name);
         super.registerControl("Color", this.color);
         super.registerControl("Frequency", this.frequency);
     }
@@ -43,7 +44,7 @@ public class Strobe extends AnimationLayer {
         }
         @Override
         public AnimationLayer build() {
-            return new Strobe();
+            return new Strobe(super.getName());
         }
     }
 

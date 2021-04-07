@@ -9,10 +9,13 @@ import java.util.*;
 
 public abstract class AnimationLayer {
 
+    private UUID uuid;
+    private String name;
     private Map<String, Control> controls;
     private Select<BlendMode> blendModes;
 
-    public AnimationLayer(){
+    public AnimationLayer(String name){
+        this.name = name;
         this.controls = new LinkedHashMap<String, Control>();
         this.blendModes = new Select<BlendMode>(
                 BlendMode.NORMAL
@@ -28,6 +31,22 @@ public abstract class AnimationLayer {
 
     public void registerControl(String name, Control control){
         this.controls.put(name, control);
+    }
+
+    public UUID getUuid() {
+        return uuid;
+    }
+
+    public void setUuid(UUID uuid) {
+        this.uuid = uuid;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 
     public BlendMode getBlendMode(){

@@ -3,22 +3,20 @@ package io.aelite.ledwall.core.animation;
 import io.aelite.ledwall.core.Canvas;
 import io.aelite.ledwall.core.animation.layer.AnimationLayer;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.UUID;
+import java.util.*;
 
 public class Animation {
 
     private String name;
     private UUID uuid;
-    private ArrayList<AnimationLayer> animationLayers;
+    private Map<UUID, AnimationLayer> animationLayers;
 
     private Canvas backgroundFrameBuffer;
     private Canvas layerFrameBuffer;
 
     public Animation(String name) {
         this.name = name;
-        this.animationLayers = new ArrayList<AnimationLayer>();
+        this.animationLayers = new LinkedHashMap<UUID, AnimationLayer>();
     }
 
     public String getName() {
@@ -38,18 +36,19 @@ public class Animation {
     }
 
     public List<AnimationLayer> getAnimationLayers() {
-        return animationLayers;
+        return new ArrayList<>(this.animationLayers.values());
     }
 
     public void addAnimationLayer(AnimationLayer animationLayer){
-        this.animationLayers.add(animationLayer);
+        animationLayer.setUuid(UUID.randomUUID());
+        this.animationLayers.put(animationLayer.getUuid(), animationLayer);
     }
 
     public void onInit(int width, int height){
         this.backgroundFrameBuffer = new Canvas(width, height, 0xFF_00_00_00);
         this.layerFrameBuffer = new Canvas(width, height, 0x00_00_00_00);
 
-        for(AnimationLayer animationLayer : this.animationLayers){
+        for(AnimationLayer animationLayer : this.animationLayers.values()){
             try {
                 animationLayer.onInit();
             } catch (Exception e) {
@@ -61,7 +60,7 @@ public class Animation {
     public Canvas onUpdate(double deltaTime){
         this.backgroundFrameBuffer.fill(0xFF_00_00_00);
 
-        for(AnimationLayer animationLayer : this.animationLayers){
+        for(AnimationLayer animationLayer : this.animationLayers.values()){
             this.layerFrameBuffer.fill(0x00_00_00_00);
             try {
                 animationLayer.onUpdate(this.layerFrameBuffer, deltaTime);
@@ -74,7 +73,7 @@ public class Animation {
     }
 
     public void onStop(){
-        for(AnimationLayer animationLayer : this.animationLayers){
+        for(AnimationLayer animationLayer : this.animationLayers.values()){
             try {
                 animationLayer.onStop();
             } catch (Exception e) {

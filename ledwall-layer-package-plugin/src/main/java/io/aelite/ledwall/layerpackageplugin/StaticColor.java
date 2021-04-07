@@ -9,7 +9,8 @@ public class StaticColor extends AnimationLayer {
 
     private final Color color = new Color(255, 255, 255);
 
-    public StaticColor(){
+    public StaticColor(String name){
+        super(name);
         super.registerControl("Color", this.color);
     }
 
@@ -34,7 +35,7 @@ public class StaticColor extends AnimationLayer {
         }
         @Override
         public AnimationLayer build() {
-            return new StaticColor();
+            return new StaticColor(super.getName());
         }
     }
 
