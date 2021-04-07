@@ -1,26 +1,26 @@
 package io.aelite.ledwall.core.animation;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 public class AnimationManager {
 
-    private List<Animation> animations;
+    private Map<UUID, Animation> animations;
 
     public AnimationManager(){
-        this.animations = new ArrayList<Animation>();
+        this.animations = new LinkedHashMap<UUID, Animation>();
     }
 
     public void addAnimation(Animation animation){
-        this.animations.add(animation);
+        animation.setUuid(UUID.randomUUID());
+        this.animations.put(animation.getUuid(), animation);
     }
 
     public List<Animation> getAnimations(){
-        return this.animations;
+        return new ArrayList<Animation>(this.animations.values());
     }
 
-    public Animation getAnimation(int id){
-        return this.animations.get(id);
+    public Animation getAnimation(UUID uuid){
+        return this.animations.get(uuid);
     }
 
 }

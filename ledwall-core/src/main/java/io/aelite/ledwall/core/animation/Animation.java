@@ -5,10 +5,12 @@ import io.aelite.ledwall.core.animation.layer.AnimationLayer;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 public class Animation {
 
     private String name;
+    private UUID uuid;
     private ArrayList<AnimationLayer> animationLayers;
 
     private Canvas backgroundFrameBuffer;
@@ -25,6 +27,14 @@ public class Animation {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public UUID getUuid(){
+        return this.uuid;
+    }
+
+    public void setUuid(UUID uuid){
+        this.uuid = uuid;
     }
 
     public List<AnimationLayer> getAnimationLayers() {

@@ -9,6 +9,7 @@ import io.aelite.ledwall.core.plugin.PluginLoader;
 import io.aelite.ledwall.core.plugin.PluginManager;
 
 import java.util.List;
+import java.util.UUID;
 import java.util.function.Consumer;
 
 /**
@@ -90,8 +91,8 @@ public class LedWallApplication {
      * @param id of the animation
      * @return the corresponding animation
      */
-    public Animation getAnimation(int id) {
-        return this.animationManager.getAnimation(id);
+    public Animation getAnimation(UUID uuid) {
+        return this.animationManager.getAnimation(uuid);
     }
 
     /**
@@ -110,4 +111,20 @@ public class LedWallApplication {
         this.animationLayerManager.addAnimationLayerBuilder(builder);
     }
 
+    /**
+     * Get all registered AnimationLayerBuilder.
+     * @return builders
+     */
+    public List<AnimationLayerBuilder> getAnimationLayerBuilders(){
+        return this.animationLayerManager.getAnimationLayerBuilders();
+    }
+
+    /**
+     * Get the AnimationLayerBuilder by UUID.
+     * @param layerBuilderUuid uuid to search for
+     * @return the object that instantiates new AnimationLayers
+     */
+    public AnimationLayerBuilder getAnimationLayerBuilder(UUID layerBuilderUuid) {
+        return this.animationLayerManager.getAnimationLayerBuilder(layerBuilderUuid);
+    }
 }

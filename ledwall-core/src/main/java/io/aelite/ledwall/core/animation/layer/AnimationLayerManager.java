@@ -1,18 +1,25 @@
 package io.aelite.ledwall.core.animation.layer;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 public class AnimationLayerManager {
 
-    private List<AnimationLayerBuilder> animationLayerBuilders;
+    private Map<UUID, AnimationLayerBuilder> animationLayerBuilders;
 
     public AnimationLayerManager(){
-        this.animationLayerBuilders = new ArrayList<AnimationLayerBuilder>();
+        this.animationLayerBuilders = new LinkedHashMap<UUID, AnimationLayerBuilder>();
     }
 
     public void addAnimationLayerBuilder(AnimationLayerBuilder builder) {
-        this.animationLayerBuilders.add(builder);
+        builder.setUuid(UUID.randomUUID());
+        this.animationLayerBuilders.put(builder.getUuid(), builder);
     }
 
+    public List<AnimationLayerBuilder> getAnimationLayerBuilders() {
+        return new ArrayList<>(this.animationLayerBuilders.values());
+    }
+
+    public AnimationLayerBuilder getAnimationLayerBuilder(UUID uuid) {
+        return this.animationLayerBuilders.get(uuid);
+    }
 }
