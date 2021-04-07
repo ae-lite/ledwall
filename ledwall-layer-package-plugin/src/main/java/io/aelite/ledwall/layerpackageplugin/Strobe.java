@@ -1,6 +1,5 @@
-package io.aelite.ledwall.layerpackage;
+package io.aelite.ledwall.layerpackageplugin;
 
-import com.google.inject.Inject;
 import io.aelite.ledwall.core.Canvas;
 import io.aelite.ledwall.core.animation.control.Color;
 import io.aelite.ledwall.core.animation.control.Slider;
@@ -15,7 +14,6 @@ public class Strobe extends AnimationLayer {
     private final Slider frequency = new Slider(1, 10, 1, 3);
     private double elapsedTime;
 
-    @Inject
     public Strobe(Set<BlendMode> blendModes) {
         super(blendModes);
         super.registerControl("Color", this.color);

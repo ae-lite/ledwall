@@ -10,7 +10,7 @@
         <version>${revision}</version>
     </parent>
 
-    <artifactId>ledwall-layer-package</artifactId>
+    <artifactId>ledwall-layer-package-plugin</artifactId>
 
     <properties>
         <maven.deploy.skip>false</maven.deploy.skip>

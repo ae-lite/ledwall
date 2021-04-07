@@ -12,7 +12,7 @@ public class GetAnimationsHandler implements Handler {
 
     @Override
     public void handle(@NotNull Context context) throws Exception {
-        List<Animation> animations = LedWallApplication.INSTANCE.getAnimationManager().getAnimations();
+        List<Animation> animations = LedWallApplication.INSTANCE.getAnimations();
         context.json(animations);
     }
 

@@ -10,8 +10,8 @@ public class GetAnimationHandler implements Handler {
 
     @Override
     public void handle(@NotNull Context context) {
-        int index = Integer.parseInt(context.pathParam("index"));
-        Animation animation = LedWallApplication.INSTANCE.getAnimationManager().getAnimation(index);
+        int id = Integer.parseInt(context.pathParam("id"));
+        Animation animation = LedWallApplication.INSTANCE.getAnimation(id);
 
         if(animation == null){
             context.status(404);

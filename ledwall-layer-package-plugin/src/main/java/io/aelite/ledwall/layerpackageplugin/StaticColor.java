@@ -1,6 +1,5 @@
-package io.aelite.ledwall.layerpackage;
+package io.aelite.ledwall.layerpackageplugin;
 
-import com.google.inject.Inject;
 import io.aelite.ledwall.core.Canvas;
 import io.aelite.ledwall.core.animation.AnimationLayer;
 import io.aelite.ledwall.core.animation.control.Color;
@@ -12,7 +11,6 @@ public class StaticColor extends AnimationLayer {
 
     private final Color color = new Color(255, 255, 255);
 
-    @Inject
     public StaticColor(Set<BlendMode> blendModes){
         super(blendModes);
         super.registerControl("Color", this.color);

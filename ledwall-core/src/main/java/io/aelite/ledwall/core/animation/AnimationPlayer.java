@@ -1,7 +1,5 @@
 package io.aelite.ledwall.core.animation;
 
-import com.google.inject.Inject;
-import com.google.inject.name.Named;
 import io.aelite.ledwall.core.Canvas;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -18,19 +16,14 @@ public class AnimationPlayer {
     private int width;
     private int height;
     private Animation runningAnimation;
-    private List<Consumer<Canvas>> frameUpdateSubscribers;
+    private List<Consumer<Canvas>> frameUpdateCallbacks;
 
-    @Inject
-    public AnimationPlayer(
-        @Named("ledwall.core.maxfps") int maxFps,
-        @Named("ledwall.core.width") int width,
-        @Named("ledwall.core.height") int height
-    ){
+    public AnimationPlayer(int maxFps, int width, int height){
         this.maxFps = maxFps;
         this.width = width;
         this.height = height;
         this.runningAnimation = null;
-        this.frameUpdateSubscribers = new ArrayList<Consumer<Canvas>>();
+        this.frameUpdateCallbacks = new ArrayList<Consumer<Canvas>>();
     }
 
     public synchronized void play(Animation animation){
@@ -47,7 +40,11 @@ public class AnimationPlayer {
         }
     }
 
-    public synchronized void runRenderLoop(){
+    public void startRenderer(){
+        new Thread(this::runRenderLoop, "LedWall Render Thread").start();
+    }
+
+    private synchronized void runRenderLoop(){
         int period = 1000 / this.maxFps;
         long millis_current = System.currentTimeMillis();
 
@@ -78,12 +75,12 @@ public class AnimationPlayer {
         }
     }
 
-    public void subscribeToFrameUpdates(Consumer<Canvas> consumer){
-        this.frameUpdateSubscribers.add(consumer);
+    public void onFrameUpdate(Consumer<Canvas> frameUpdateCallback) {
+        this.frameUpdateCallbacks.add(frameUpdateCallback);
     }
 
     private void publishFrame(Canvas canvas){
-        for(Consumer<Canvas> consumer : this.frameUpdateSubscribers){
+        for(Consumer<Canvas> consumer : this.frameUpdateCallbacks){
             consumer.accept(canvas);
         }
     }

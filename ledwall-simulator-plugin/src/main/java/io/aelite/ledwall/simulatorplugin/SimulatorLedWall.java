@@ -20,10 +20,7 @@ public class SimulatorLedWall implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        LedWallApplication.INSTANCE
-                .getAnimationManager().getAnimationPlayer()
-                .subscribeToFrameUpdates(this::updateFrame);
-
+        LedWallApplication.INSTANCE.onFrameUpdate(this::updateFrame);
         AnimationTimer animationTimer = new AnimationTimer() {
             @Override
             public void handle(long now) {
@@ -41,6 +38,8 @@ public class SimulatorLedWall implements Initializable {
     }
 
     private synchronized void drawFrame(Canvas canvas) {
+        if(this.frame == null)
+            return;
         int width = canvas.getWidth();
         int height = canvas.getHeight();
 

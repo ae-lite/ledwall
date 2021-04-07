@@ -1,6 +1,5 @@
 package io.aelite.ledwall.core.plugin;
 
-import com.google.inject.Inject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -11,7 +10,6 @@ public class PluginManager {
     private static final Logger logger = LoggerFactory.getLogger(PluginManager.class);
     private final Set<Plugin> plugins;
 
-    @Inject
     public PluginManager(Set<Plugin> plugins){
         this.plugins = plugins;
     }

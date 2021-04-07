@@ -1,7 +1,5 @@
 package io.aelite.ledwall.restplugin;
 
-import com.google.inject.Inject;
-import com.google.inject.name.Named;
 import io.aelite.ledwall.core.plugin.Plugin;
 import io.aelite.ledwall.restplugin.handler.*;
 import io.javalin.Javalin;
@@ -14,9 +12,9 @@ public class LedWallRestPlugin implements Plugin {
     private Javalin javalin;
     private int port;
 
-    @Inject
-    public LedWallRestPlugin(@Named("ledwall.rest.port") int port){
-        this.port = port;
+    public LedWallRestPlugin(){
+        // TODO load from properties
+        this.port = 8080;
     }
 
     @Override
@@ -36,7 +34,7 @@ public class LedWallRestPlugin implements Plugin {
         this.javalin.get("/devicetype", new GetDeviceTypeHandler());
         this.javalin.post("/shutdown", new PostShutdownHandler());
         this.javalin.get("/animations", new GetAnimationsHandler());
-        this.javalin.get("/animations/:index", new GetAnimationHandler());
+        this.javalin.get("/animations/:id", new GetAnimationHandler());
         this.javalin.post("/animations/:name", new PostAnimationHandler());
     }
 

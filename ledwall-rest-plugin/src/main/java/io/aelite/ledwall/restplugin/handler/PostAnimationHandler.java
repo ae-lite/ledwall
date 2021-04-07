@@ -12,7 +12,7 @@ public class PostAnimationHandler implements Handler {
     public void handle(@NotNull Context context) {
         String name = context.pathParam("name");
         Animation animation = new Animation(name);
-        LedWallApplication.INSTANCE.getAnimationManager().addAnimation(animation);
+        LedWallApplication.INSTANCE.addAnimation(animation);
         context.json(animation);
     }
 
