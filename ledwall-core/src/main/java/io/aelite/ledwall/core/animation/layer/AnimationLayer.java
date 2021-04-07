@@ -1,9 +1,9 @@
-package io.aelite.ledwall.core.animation;
+package io.aelite.ledwall.core.animation.layer;
 
 import io.aelite.ledwall.core.Canvas;
 import io.aelite.ledwall.core.animation.control.Control;
 import io.aelite.ledwall.core.animation.control.Select;
-import io.aelite.ledwall.core.blendmode.BlendMode;
+import io.aelite.ledwall.core.animation.layer.blendmode.BlendMode;
 
 import java.util.*;
 
@@ -12,9 +12,11 @@ public abstract class AnimationLayer {
     private Map<String, Control> controls;
     private Select<BlendMode> blendModes;
 
-    public AnimationLayer(Set<BlendMode> blendModes){
+    public AnimationLayer(){
         this.controls = new LinkedHashMap<String, Control>();
-        this.blendModes = new Select<BlendMode>(blendModes);
+        this.blendModes = new Select<BlendMode>(
+                BlendMode.NORMAL
+        );
         this.registerControl("Blend Mode", this.blendModes);
     }
 

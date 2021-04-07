@@ -3,6 +3,8 @@ package io.aelite.ledwall.core;
 import io.aelite.ledwall.core.animation.Animation;
 import io.aelite.ledwall.core.animation.AnimationManager;
 import io.aelite.ledwall.core.animation.AnimationPlayer;
+import io.aelite.ledwall.core.animation.layer.AnimationLayerBuilder;
+import io.aelite.ledwall.core.animation.layer.AnimationLayerManager;
 import io.aelite.ledwall.core.plugin.PluginLoader;
 import io.aelite.ledwall.core.plugin.PluginManager;
 
@@ -24,6 +26,7 @@ public class LedWallApplication {
     public static final LedWallApplication INSTANCE = new LedWallApplication();
 
     private AnimationManager animationManager;
+    private AnimationLayerManager animationLayerManager;
     private AnimationPlayer animationPlayer;
     private PluginManager pluginManager;
 
@@ -33,6 +36,7 @@ public class LedWallApplication {
      */
     private LedWallApplication(){
         this.animationManager = new AnimationManager();
+        this.animationLayerManager = new AnimationLayerManager();
         // TODO load from properties
         this.animationPlayer = new AnimationPlayer(60, 48, 12);
         this.pluginManager = new PluginManager(new PluginLoader().loadPlugins());
@@ -96,6 +100,14 @@ public class LedWallApplication {
      */
     public void addAnimation(Animation animation) {
         this.animationManager.addAnimation(animation);
+    }
+
+    /**
+     * Register an AnimationLayerBuilder that is responsible for creating new animation layers.
+     * @param builder the object that instantiates new AnimationLayers
+     */
+    public void addAnimationLayerBuilder(AnimationLayerBuilder builder) {
+        this.animationLayerManager.addAnimationLayerBuilder(builder);
     }
 
 }

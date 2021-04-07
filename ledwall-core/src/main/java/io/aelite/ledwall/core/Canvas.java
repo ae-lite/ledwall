@@ -1,6 +1,6 @@
 package io.aelite.ledwall.core;
 
-import io.aelite.ledwall.core.blendmode.BlendMode;
+import io.aelite.ledwall.core.animation.layer.blendmode.BlendMode;
 
 public class Canvas {
 

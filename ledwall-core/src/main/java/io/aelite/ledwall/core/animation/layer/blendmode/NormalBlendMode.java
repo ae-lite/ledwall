@@ -1,6 +1,6 @@
-package io.aelite.ledwall.core.blendmode;
+package io.aelite.ledwall.core.animation.layer.blendmode;
 
-import io.aelite.ledwall.core.Color;
+import io.aelite.ledwall.core.util.Color;
 
 public class NormalBlendMode implements BlendMode {
 
@@ -27,7 +27,7 @@ public class NormalBlendMode implements BlendMode {
         int blue    = (int) ((double) blueB * alpha + (1 - alpha) * (double) blueA);
 
         // TODO: 255?
-        return Color.get(255, red, green, blue);
+        return Color.getARGB(255, red, green, blue);
     }
 
 }

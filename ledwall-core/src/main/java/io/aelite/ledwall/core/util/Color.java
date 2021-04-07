@@ -1,30 +1,8 @@
-package io.aelite.ledwall.core;
+package io.aelite.ledwall.core.util;
 
 public class Color {
 
-    private int argb;
-
-    public Color(int argb){
-        this.argb = argb;
-    }
-
-    public Color(int alpha, int red, int green, int blue){
-        this.argb = Color.get(alpha, red, green, blue);
-    }
-
-    public Color(int red, int green, int blue){
-        this(255, red, green, blue);
-    }
-
-    public int get(){
-        return this.argb;
-    }
-
-    public void set(int argb){
-        this.argb = argb;
-    }
-
-    public static int get(int alpha, int red, int green, int blue){
+    public static int getARGB(int alpha, int red, int green, int blue){
         int result = (alpha << 24);
         result = result | (red << 16);
         result = result | (green << 8);

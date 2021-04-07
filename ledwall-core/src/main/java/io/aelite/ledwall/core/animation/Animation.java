@@ -1,6 +1,7 @@
 package io.aelite.ledwall.core.animation;
 
 import io.aelite.ledwall.core.Canvas;
+import io.aelite.ledwall.core.animation.layer.AnimationLayer;
 
 import java.util.ArrayList;
 import java.util.List;

@@ -1,7 +1,7 @@
 package io.aelite.ledwall.simulatorplugin;
 
 import io.aelite.ledwall.core.Canvas;
-import io.aelite.ledwall.core.Color;
+import io.aelite.ledwall.core.util.Color;
 import io.aelite.ledwall.core.LedWallApplication;
 import javafx.animation.AnimationTimer;
 import javafx.fxml.FXML;

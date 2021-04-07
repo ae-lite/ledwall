@@ -31,7 +31,7 @@ public class LedWallRestPlugin implements Plugin {
 
     private void run() {
         this.javalin = Javalin.create().start(this.port);
-        this.javalin.get("/devicetype", new GetDeviceTypeHandler());
+        this.javalin.get("/", new GetDeviceTypeHandler());
         this.javalin.post("/shutdown", new PostShutdownHandler());
         this.javalin.get("/animations", new GetAnimationsHandler());
         this.javalin.get("/animations/:id", new GetAnimationHandler());

@@ -14,7 +14,7 @@ public class Select<T> extends Control {
         }
     }
 
-    public Select(String name, T... elements) {
+    public Select(T... elements) {
         this(Arrays.asList(elements));
     }
 
