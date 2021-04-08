@@ -2,10 +2,13 @@ package io.aelite.ledwall.sandbox;
 
 import io.aelite.ledwall.core.Canvas;
 import io.aelite.ledwall.core.animation.layer.AnimationLayer;
+import io.aelite.ledwall.core.util.Color;
 
-public class AEAnmationLayer extends AnimationLayer {
+public class AEAnimationLayer extends AnimationLayer {
 
-    public AEAnmationLayer(String name) {
+    private double red;
+
+    public AEAnimationLayer(String name) {
         super(name);
     }
 
@@ -13,7 +16,8 @@ public class AEAnmationLayer extends AnimationLayer {
 
     // TODO implement some fancy animation!
     @Override public void onUpdate(Canvas canvas, double deltaTime) {
-        canvas.fill(0xFF_FF_00_00);
+        this.red = (this.red + deltaTime * 30) % 255;
+        canvas.fill(Color.getARGB(255, (int) this.red, 0, 0));
     }
 
     @Override public void onStop() {}

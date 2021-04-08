@@ -9,7 +9,7 @@ public class Main {
     public static void main(String[] args) {
         LedWallApplication application = new LedWallApplication(Main.class);
 
-        AnimationLayerBuilder builder = new AnimationLayerBuilder("AE", "Default AE animation layer.", AEAnmationLayer::new);
+        AnimationLayerBuilder builder = new AnimationLayerBuilder("AE", "Default AE animation layer.", AEAnimationLayer::new);
         application.addAnimationLayerBuilder(builder);
 
         Animation animation = new Animation("Boot Animation");
