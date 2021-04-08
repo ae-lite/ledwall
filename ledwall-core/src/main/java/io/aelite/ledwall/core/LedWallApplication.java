@@ -8,6 +8,7 @@ import io.aelite.ledwall.core.animation.layer.AnimationLayerManager;
 import io.aelite.ledwall.core.plugin.Plugin;
 import io.aelite.ledwall.core.plugin.PluginLoader;
 import io.aelite.ledwall.core.plugin.PluginManager;
+import io.aelite.ledwall.core.property.PropertyManager;
 
 import java.util.List;
 import java.util.Set;
@@ -27,16 +28,21 @@ public class LedWallApplication {
     private AnimationLayerManager animationLayerManager;
     private AnimationPlayer animationPlayer;
     private PluginManager pluginManager;
+    private PropertyManager propertyManager;
 
     /**
      * This constructs the LedWallApplication instance.
-     * Note: This constructor is private due to the singleton design pattern.
      */
     public LedWallApplication(Class<?>... classes){
+        this.propertyManager = new PropertyManager();
+
         this.animationManager = new AnimationManager();
         this.animationLayerManager = new AnimationLayerManager();
-        // TODO load from properties
-        this.animationPlayer = new AnimationPlayer(60, 48, 12);
+        this.animationPlayer = new AnimationPlayer(
+                properties().getInt("io.aelite.ledwall.core.fps"),
+                properties().getInt("io.aelite.ledwall.core.width"),
+                properties().getInt("io.aelite.ledwall.core.height")
+        );
 
         Set<Plugin> plugins = new PluginLoader().loadPlugins(classes);
         this.pluginManager = new PluginManager(this, plugins);
@@ -87,7 +93,7 @@ public class LedWallApplication {
 
     /**
      * Get the animation by id.
-     * @param id of the animation
+     * @param uuid of the animation
      * @return the corresponding animation
      */
     public Animation getAnimation(UUID uuid) {
@@ -125,5 +131,13 @@ public class LedWallApplication {
      */
     public AnimationLayerBuilder getAnimationLayerBuilder(UUID layerBuilderUuid) {
         return this.animationLayerManager.getAnimationLayerBuilder(layerBuilderUuid);
+    }
+
+    /**
+     * Get the global application PropertyManager.
+     * @return PropertyManager
+     */
+    public PropertyManager properties(){
+        return this.propertyManager;
     }
 }

@@ -25,6 +25,9 @@ public class LedWallRestPlugin implements Plugin {
     @Override
     public void onInit(LedWallApplication application) {
         this.application = application;
+
+        this.application.properties().setDefault("io.aelite.ledwall.restplugin.port", 8080);
+
         new Thread(this::run).start();
         logger.info("LedWallRestPlugin initialized");
     }
@@ -36,8 +39,7 @@ public class LedWallRestPlugin implements Plugin {
     }
 
     private void run() {
-        // TODO: load port from config
-        this.javalin = Javalin.create().start(8080);
+        this.javalin = Javalin.create().start(this.application.properties().getInt("io.aelite.ledwall.restplugin.port"));
 
         this.javalin.get("/", (ctx) -> {
             ctx.json(new DeviceTypeDTO());

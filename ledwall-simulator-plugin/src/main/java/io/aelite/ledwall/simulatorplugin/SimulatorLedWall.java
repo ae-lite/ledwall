@@ -24,9 +24,8 @@ public class SimulatorLedWall implements Initializable {
 
     public SimulatorLedWall(LedWallApplication application){
         this.application = application;
-        // TODO: load these values from properties
-        this.width = 48;
-        this.height = 12;
+        this.width = application.properties().getInt("io.aelite.ledwall.core.width");
+        this.height = application.properties().getInt("io.aelite.ledwall.core.height");;
         this.frame = new Canvas(width, height);
     }
 
