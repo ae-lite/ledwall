@@ -3,16 +3,16 @@ package io.aelite.ledwall.core;
 import io.aelite.ledwall.core.animation.Animation;
 import io.aelite.ledwall.core.animation.AnimationManager;
 import io.aelite.ledwall.core.animation.AnimationPlayer;
-import io.aelite.ledwall.core.animation.layer.AnimationLayer;
 import io.aelite.ledwall.core.animation.layer.AnimationLayerBuilder;
 import io.aelite.ledwall.core.animation.layer.AnimationLayerManager;
+import io.aelite.ledwall.core.plugin.Plugin;
 import io.aelite.ledwall.core.plugin.PluginLoader;
 import io.aelite.ledwall.core.plugin.PluginManager;
 
 import java.util.List;
+import java.util.Set;
 import java.util.UUID;
 import java.util.function.Consumer;
-import java.util.function.Function;
 
 /**
  * This class represents the whole application state.
@@ -32,12 +32,14 @@ public class LedWallApplication {
      * This constructs the LedWallApplication instance.
      * Note: This constructor is private due to the singleton design pattern.
      */
-    public LedWallApplication(){
+    public LedWallApplication(Class<?>... classes){
         this.animationManager = new AnimationManager();
         this.animationLayerManager = new AnimationLayerManager();
         // TODO load from properties
         this.animationPlayer = new AnimationPlayer(60, 48, 12);
-        this.pluginManager = new PluginManager(this, new PluginLoader().loadPlugins());
+
+        Set<Plugin> plugins = new PluginLoader().loadPlugins(classes);
+        this.pluginManager = new PluginManager(this, plugins);
     }
 
     /**
