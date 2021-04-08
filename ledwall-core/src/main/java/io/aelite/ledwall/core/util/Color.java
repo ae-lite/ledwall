@@ -30,4 +30,24 @@ public class Color {
         return argb & mask;
     }
 
+    public static int setAlpha(int argb, int alpha){
+        int mask = 0x00_FF_FF_FF;
+        return (argb & mask) | (alpha << 24);
+    }
+
+    public static int setRed(int argb, int red){
+        int mask = 0xFF_00_FF_FF;
+        return (argb & mask) | (red << 16);
+    }
+
+    public static int setGreen(int argb, int green){
+        int mask = 0xFF_FF_00_FF;
+        return (argb & mask) | (green << 8);
+    }
+
+    public static int setBlue(int argb, int blue){
+        int mask = 0xFF_FF_FF_00;
+        return (argb & mask) | blue;
+    }
+
 }

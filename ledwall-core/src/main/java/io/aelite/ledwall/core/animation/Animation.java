@@ -67,7 +67,7 @@ public class Animation {
             } catch (Exception e) {
                 e.printStackTrace();
             }
-            // TODO calculate Opacity
+            this.layerFrameBuffer.applyOpacity(animationLayer.getOpacity());
             this.backgroundFrameBuffer.blend(this.layerFrameBuffer, animationLayer.getBlendMode());
         }
         return this.backgroundFrameBuffer;

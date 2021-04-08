@@ -14,18 +14,15 @@ public abstract class AnimationLayer {
     private final String name;
     private final Map<UUID, Control> controls;
 
-    private Select<String, BlendMode> blendModes;
-    private Slider opacity;
+    private Select<String, BlendMode> blendModes = new Select<String, BlendMode>("Blend Modes");
+    private Slider opacity = new Slider("Opacity", 0, 255, 1, 255);
 
     public AnimationLayer(String name){
         this.name = name;
         this.controls = new LinkedHashMap<UUID, Control>();
 
-        this.blendModes = new Select<String, BlendMode>("Blend Modes");
         this.blendModes.put("Normal", BlendMode.NORMAL);
         this.registerControl(this.blendModes);
-
-        this.opacity = new Slider("Opacity", 0, 100, 1, 100);
         this.registerControl(this.opacity);
     }
 
@@ -58,6 +55,10 @@ public abstract class AnimationLayer {
 
     public BlendMode getBlendMode(){
         return this.blendModes.getSelectedValue();
+    }
+
+    public int getOpacity(){
+        return (int) this.opacity.getValue();
     }
 
 }
