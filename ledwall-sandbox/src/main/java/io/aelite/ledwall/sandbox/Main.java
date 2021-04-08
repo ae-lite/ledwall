@@ -2,14 +2,23 @@ package io.aelite.ledwall.sandbox;
 
 import io.aelite.ledwall.core.LedWallApplication;
 import io.aelite.ledwall.core.animation.Animation;
+import io.aelite.ledwall.core.animation.layer.AnimationLayerBuilder;
 
 public class Main {
 
     public static void main(String[] args) {
-        LedWallApplication.INSTANCE.run();
+        LedWallApplication application = new LedWallApplication();
 
-        Animation animation = new Animation("Test Animation");
-        LedWallApplication.INSTANCE.playAnimation(animation);
+        AnimationLayerBuilder builder = new AnimationLayerBuilder("AE", "Default AE animation layer.", AEAnmationLayer::new);
+        application.addAnimationLayerBuilder(builder);
+
+        Animation animation = new Animation("Boot Animation");
+        animation.addAnimationLayer(builder.build());
+
+        application.addAnimation(animation);
+        application.playAnimation(animation);
+
+        application.run();
     }
 
 }

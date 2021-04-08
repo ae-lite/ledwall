@@ -9,17 +9,25 @@ import javafx.stage.Stage;
 
 public class SimulatorApplication extends Application {
 
+    private static LedWallApplication application;
+
     @Override
     public void start(Stage stage) throws Exception {
-        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("SimulatorLedWall.fxml"));
-        Parent root = fxmlLoader.load();
+        SimulatorLedWall simulatorLedWall = new SimulatorLedWall(SimulatorApplication.application);
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("SimulatorLedWall.fxml"));
+        loader.setController(simulatorLedWall);
+        Parent simulator = loader.load();
 
-        stage.setScene(new Scene(root));
+        stage.setScene(new Scene(simulator));
         stage.setTitle("LedWallSimulatorPlugin");
         stage.setOnCloseRequest((e) -> {
-            LedWallApplication.INSTANCE.stop();
+            SimulatorApplication.application.stop();
         });
         stage.show();
+    }
+
+    static void setApplication(LedWallApplication application){
+        SimulatorApplication.application = application;
     }
 
 }

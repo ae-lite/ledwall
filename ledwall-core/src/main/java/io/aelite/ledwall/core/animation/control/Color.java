@@ -9,15 +9,16 @@ public class Color extends Control {
     private int green;
     private int blue;
 
-    public Color(int alpha, int red, int green, int blue){
+    public Color(String name, int alpha, int red, int green, int blue){
+        super(name);
         this.alpha = alpha;
         this.red = red;
         this.green = green;
         this.blue = blue;
     }
 
-    public Color(int red, int green, int blue){
-        this(255, red, green, blue);
+    public Color(String name, int red, int green, int blue){
+        this(name,255, red, green, blue);
     }
 
     @JsonIgnore

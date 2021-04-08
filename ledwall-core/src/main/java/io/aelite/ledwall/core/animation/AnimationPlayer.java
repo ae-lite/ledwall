@@ -40,11 +40,7 @@ public class AnimationPlayer {
         }
     }
 
-    public void startRenderer(){
-        new Thread(this::runRenderLoop, "LedWall Render Thread").start();
-    }
-
-    private synchronized void runRenderLoop(){
+    public synchronized void runRenderLoop(){
         int period = 1000 / this.maxFps;
         long millis_current = System.currentTimeMillis();
 

@@ -9,7 +9,8 @@ public class Select<K, V> extends Control {
     private Map<K, V> elements;
     private K selection;
 
-    public Select() {
+    public Select(String name) {
+        super(name);
         this.elements = new LinkedHashMap<K, V>();
     }
 

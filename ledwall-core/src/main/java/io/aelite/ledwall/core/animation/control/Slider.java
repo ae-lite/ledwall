@@ -7,7 +7,8 @@ public class Slider extends Control {
     private double step;
     private double value;
 
-    public Slider(double min, double max, double step, double value) {
+    public Slider(String name, double min, double max, double step, double value) {
+        super(name);
         this.min = min;
         this.max = max;
         this.step = step;

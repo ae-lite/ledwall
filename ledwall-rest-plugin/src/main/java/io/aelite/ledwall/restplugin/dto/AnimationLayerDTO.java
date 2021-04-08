@@ -3,14 +3,14 @@ package io.aelite.ledwall.restplugin.dto;
 import io.aelite.ledwall.core.animation.control.Control;
 import io.aelite.ledwall.core.animation.layer.AnimationLayer;
 
-import java.util.Map;
+import java.util.List;
 import java.util.UUID;
 
 public class AnimationLayerDTO {
 
     private UUID uuid;
     private String name;
-    private Map<String, Control> controls;
+    private List<Control> controls;
 
     public AnimationLayerDTO(AnimationLayer animationLayer){
         this.uuid = animationLayer.getUuid();
@@ -26,7 +26,7 @@ public class AnimationLayerDTO {
         return this.name;
     }
 
-    public Map<String, Control> getControls() {
+    public List<Control> getControls() {
         return controls;
     }
 

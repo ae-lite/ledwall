@@ -3,7 +3,6 @@
 <?import javafx.scene.layout.GridPane?>
 
 <GridPane
-        fx:controller="io.aelite.ledwall.simulatorplugin.SimulatorLedWall"
         fx:id="gridPane"
         vgap="1.0"
         hgap="1.0"

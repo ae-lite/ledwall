@@ -1,33 +1,27 @@
 package io.aelite.ledwall.core;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import io.aelite.ledwall.core.animation.Animation;
 import io.aelite.ledwall.core.animation.AnimationManager;
 import io.aelite.ledwall.core.animation.AnimationPlayer;
+import io.aelite.ledwall.core.animation.layer.AnimationLayer;
 import io.aelite.ledwall.core.animation.layer.AnimationLayerBuilder;
 import io.aelite.ledwall.core.animation.layer.AnimationLayerManager;
-import io.aelite.ledwall.core.animation.layer.blendmode.BlendMode;
 import io.aelite.ledwall.core.plugin.PluginLoader;
 import io.aelite.ledwall.core.plugin.PluginManager;
 
 import java.util.List;
 import java.util.UUID;
 import java.util.function.Consumer;
+import java.util.function.Function;
 
 /**
- * This class represents the whole application state in one singleton instance.
+ * This class represents the whole application state.
  * It also acts as facade, to interact with subcomponents.
  * Plugins should only interact with the interface of this class (Law of Demeter).
  *
  * @author David Adamson
  */
 public class LedWallApplication {
-
-    /**
-     * This is the singleton instance representing the whole applications state.
-     */
-    public static final LedWallApplication INSTANCE = new LedWallApplication();
 
     private AnimationManager animationManager;
     private AnimationLayerManager animationLayerManager;
@@ -38,12 +32,12 @@ public class LedWallApplication {
      * This constructs the LedWallApplication instance.
      * Note: This constructor is private due to the singleton design pattern.
      */
-    private LedWallApplication(){
+    public LedWallApplication(){
         this.animationManager = new AnimationManager();
         this.animationLayerManager = new AnimationLayerManager();
         // TODO load from properties
         this.animationPlayer = new AnimationPlayer(60, 48, 12);
-        this.pluginManager = new PluginManager(new PluginLoader().loadPlugins());
+        this.pluginManager = new PluginManager(this, new PluginLoader().loadPlugins());
     }
 
     /**
@@ -52,7 +46,7 @@ public class LedWallApplication {
      */
     public void run() {
         this.pluginManager.initPlugins();
-        this.animationPlayer.startRenderer();
+        this.animationPlayer.runRenderLoop();
     }
 
     /**

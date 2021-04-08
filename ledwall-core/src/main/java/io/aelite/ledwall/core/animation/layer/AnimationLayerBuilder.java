@@ -1,16 +1,19 @@
 package io.aelite.ledwall.core.animation.layer;
 
 import java.util.UUID;
+import java.util.function.Function;
 
-public abstract class AnimationLayerBuilder {
+public class AnimationLayerBuilder {
 
     private UUID uuid;
     private String name;
     private String description;
+    private Function<String, AnimationLayer> constructorReference;
 
-    public AnimationLayerBuilder(String name, String description){
+    public AnimationLayerBuilder(String name, String description, Function<String, AnimationLayer> constructorReference){
         this.name = name;
         this.description = description;
+        this.constructorReference = constructorReference;
     }
 
     public UUID getUuid() {
@@ -29,6 +32,8 @@ public abstract class AnimationLayerBuilder {
         return description;
     }
 
-    public abstract AnimationLayer build();
+    public AnimationLayer build() {
+        return this.constructorReference.apply(this.name);
+    }
 
 }

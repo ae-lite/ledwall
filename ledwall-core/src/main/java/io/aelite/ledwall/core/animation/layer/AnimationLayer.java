@@ -11,22 +11,22 @@ import java.util.*;
 public abstract class AnimationLayer {
 
     private UUID uuid;
-    private String name;
-    private Map<String, Control> controls;
+    private final String name;
+    private final Map<UUID, Control> controls;
 
     private Select<String, BlendMode> blendModes;
     private Slider opacity;
 
     public AnimationLayer(String name){
         this.name = name;
-        this.controls = new LinkedHashMap<String, Control>();
+        this.controls = new LinkedHashMap<UUID, Control>();
 
-        this.blendModes = new Select<String, BlendMode>();
+        this.blendModes = new Select<String, BlendMode>("Blend Modes");
         this.blendModes.put("Normal", BlendMode.NORMAL);
-        this.registerControl("Blend Mode", this.blendModes);
+        this.registerControl(this.blendModes);
 
-        this.opacity = new Slider(0, 100, 1, 100);
-        this.registerControl("Opacity", this.opacity);
+        this.opacity = new Slider("Opacity", 0, 100, 1, 100);
+        this.registerControl(this.opacity);
     }
 
     public abstract void onInit() throws Exception;
@@ -35,12 +35,13 @@ public abstract class AnimationLayer {
 
     public abstract void onStop() throws Exception;
 
-    public void registerControl(String name, Control control){
-        this.controls.put(name, control);
+    public void registerControl(Control control){
+        control.setUuid(UUID.randomUUID());
+        this.controls.put(control.getUuid(), control);
     }
 
-    public Map<String, Control> getControls() {
-        return controls;
+    public List<Control> getControls() {
+        return new ArrayList<Control>(this.controls.values());
     }
 
     public UUID getUuid() {
