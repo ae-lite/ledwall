@@ -2,32 +2,40 @@ package io.aelite.ledwall.core.animation.layer.blendmode;
 
 import io.aelite.ledwall.core.util.Color;
 
+/**
+ * This implementation uses the Porter-Duff-Algorithm to blend two transparent layers.
+ * @author David Adamson
+ */
 public class NormalBlendMode implements BlendMode {
 
     @Override
     public int blendPixel(int bottomArgb, int topArgb) {
-        //TODO fix for transparency
-        int a = Color.getAlpha(topArgb);
-        if(Color.getAlpha(topArgb) == 255){
+        double topAlpha = (double) Color.getAlpha(topArgb) / 255;
+
+        if(topAlpha == 1.0d){
             return topArgb;
         }
 
-        int redA = Color.getRed(bottomArgb);
-        int greenA = Color.getGreen(bottomArgb);
-        int blueA = Color.getBlue(bottomArgb);
+        double bottomAlpha = (double) Color.getAlpha(bottomArgb) / 255;
+        double bottomRed = (double) Color.getRed(bottomArgb) / 255;
+        double bottomGreen = (double) Color.getGreen(bottomArgb) / 255;
+        double bottomBlue = (double) Color.getBlue(bottomArgb) / 255;
 
-        int alphaB = Color.getAlpha(topArgb);
-        int redB = Color.getRed(topArgb);
-        int greenB = Color.getGreen(topArgb);
-        int blueB = Color.getBlue(topArgb);
+        double topRed = (double) Color.getRed(topArgb) / 255;
+        double topGreen = (double) Color.getGreen(topArgb) / 255;
+        double topBlue = (double) Color.getBlue(topArgb) / 255;
 
-        double alpha = (double) alphaB / 255;
-        int red     = (int) ((double) redB * alpha + (1 - alpha) * (double) redA);
-        int green   = (int) ((double) greenB * alpha + (1 - alpha) * (double) greenA);
-        int blue    = (int) ((double) blueB * alpha + (1 - alpha) * (double) blueA);
+        double alpha = topAlpha + (1 - topAlpha) * bottomAlpha;
+        double red = 1 / alpha * (topAlpha * topRed + (1 - topAlpha) * bottomAlpha * bottomRed);
+        double green = 1 / alpha * (topAlpha * topGreen + (1 - topAlpha) * bottomAlpha * bottomGreen);
+        double blue = 1 / alpha * (topAlpha * topBlue + (1 - topAlpha) * bottomAlpha * bottomBlue);
 
-        // TODO: 255?
-        return Color.getARGB(255, red, green, blue);
+        return Color.getARGB(
+                (int) (alpha * 255),
+                (int) (red * 255),
+                (int) (green * 255),
+                (int) (blue * 255)
+        );
     }
 
 }
