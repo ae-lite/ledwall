@@ -9,6 +9,7 @@ import io.aelite.ledwall.restplugin.dto.AnimationLayerBuilderDTO;
 import io.aelite.ledwall.restplugin.dto.DetailedAnimationDTO;
 import io.aelite.ledwall.restplugin.dto.DeviceTypeDTO;
 import io.javalin.Javalin;
+import io.javalin.core.JavalinConfig;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -39,7 +40,7 @@ public class LedWallRestPlugin implements Plugin {
     }
 
     private void run() {
-        this.javalin = Javalin.create().start(this.application.properties().getInt("io.aelite.ledwall.restplugin.port"));
+        this.javalin = Javalin.create(JavalinConfig::enableCorsForAllOrigins).start(this.application.properties().getInt("io.aelite.ledwall.restplugin.port"));
 
         this.javalin.get("/", (ctx) -> {
             ctx.json(new DeviceTypeDTO());
